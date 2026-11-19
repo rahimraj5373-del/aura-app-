@@ -1,0 +1,6 @@
+{
+  "name": "AURA TOKEN",
+  "description": "AURA TOKEN — Dark luxury gold-and-bronze Telegram Mini App for community mining, daily check-ins, social tasks, and referral boosts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
