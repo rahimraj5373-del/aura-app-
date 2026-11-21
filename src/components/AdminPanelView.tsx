@@ -2,8 +2,8 @@ import { ArrowLeft, Check, Megaphone, Pencil, Plus, Shield, Trash2, Users, Walle
 import { motion } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
 import { BRAND } from '../config/brand';
-import { tavoraApi } from '../services/api';
-import type { AdminOverviewResponse, TaskItem } from '../types/aura';
+import { orbixApi } from '../services/api';
+import type { AdminOverviewResponse, TaskItem } from '../types/orbix';
 
 interface AdminPanelViewProps {
   onBack: () => void;
@@ -41,7 +41,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
     setLoading(true);
     setError(null);
     try {
-      const overview = await tavoraApi.adminOverview();
+      const overview = await orbixApi.adminOverview();
       setData(overview);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to load admin console');
@@ -56,7 +56,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
 
   const handleSaveTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    await tavoraApi.adminSaveTask({
+    await orbixApi.adminSaveTask({
       id: taskForm.id,
       title: taskForm.title,
       subtitle: taskForm.subtitle,
@@ -71,13 +71,13 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
   };
 
   const handleDeleteTask = async (id: string) => {
-    await tavoraApi.adminDeleteTask(id);
+    await orbixApi.adminDeleteTask(id);
     setNotice('Task removed');
     await Promise.all([loadOverview(), onDataChanged()]);
   };
 
   const handleWithdrawDecision = async (withdrawId: string, decision: 'approved' | 'rejected') => {
-    await tavoraApi.adminWithdrawAction(withdrawId, decision);
+    await orbixApi.adminWithdrawAction(withdrawId, decision);
     setNotice(`Withdraw ${decision}`);
     await Promise.all([loadOverview(), onDataChanged()]);
   };
@@ -85,7 +85,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
   const handleBroadcast = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!broadcastBody.trim()) return;
-    await tavoraApi.adminBroadcast(broadcastTitle, broadcastBody);
+    await orbixApi.adminBroadcast(broadcastTitle, broadcastBody);
     setBroadcastBody('');
     setNotice('Broadcast published');
     await Promise.all([loadOverview(), onDataChanged()]);
@@ -102,7 +102,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
         <button
           type="button"
           onClick={onBack}
-          className="min-w-[44px] min-h-[44px] rounded-2xl aura-glass flex items-center justify-center text-[#F3D9B1]"
+          className="min-w-[44px] min-h-[44px] rounded-2xl orbix-glass flex items-center justify-center text-[#F3D9B1]"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -117,19 +117,19 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
 
       {data && (
         <div className="grid grid-cols-3 gap-2.5">
-          <div className="aura-glass rounded-2xl p-3 text-center">
+          <div className="orbix-glass rounded-2xl p-3 text-center">
             <p className="text-[11px] text-[#8E7763]">Users</p>
             <p className="font-display text-lg font-semibold text-[#F7EFE6] font-mono-tabular">
               {data.stats.totalUsers}
             </p>
           </div>
-          <div className="aura-glass rounded-2xl p-3 text-center">
+          <div className="orbix-glass rounded-2xl p-3 text-center">
             <p className="text-[11px] text-[#8E7763]">{BRAND.symbol} Supply</p>
             <p className="font-display text-lg font-semibold text-[#F3D9B1] font-mono-tabular">
-              {Math.round(data.stats.totalTvrSupply)}
+              {Math.round(data.stats.totalOrxSupply)}
             </p>
           </div>
-          <div className="aura-glass rounded-2xl p-3 text-center">
+          <div className="orbix-glass rounded-2xl p-3 text-center">
             <p className="text-[11px] text-[#8E7763]">Pending</p>
             <p className="font-display text-lg font-semibold text-[#E5BE8B] font-mono-tabular">
               {data.stats.pendingWithdraws}
@@ -152,7 +152,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
             type="button"
             onClick={() => setTab(id)}
             className={`min-h-[42px] rounded-xl text-[11px] font-semibold flex items-center justify-center gap-1 transition-colors ${
-              tab === id ? 'aura-gold-card text-[#1B120B]' : 'text-[#A58E79]'
+              tab === id ? 'orbix-gold-card text-[#1B120B]' : 'text-[#A58E79]'
             }`}
           >
             <Icon className="w-3.5 h-3.5" />
@@ -173,7 +173,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
       )}
 
       {loading ? (
-        <div className="aura-glass rounded-[24px] p-8 text-center text-xs text-[#A58E79]">
+        <div className="orbix-glass rounded-[24px] p-8 text-center text-xs text-[#A58E79]">
           Loading admin records...
         </div>
       ) : (
@@ -182,7 +182,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
             {tab === 'users' && (
               <div className="space-y-2.5">
                 {data.users.map((u) => (
-                  <div key={u.tg_id} className="aura-glass rounded-2xl p-4 flex items-center justify-between gap-3">
+                  <div key={u.tg_id} className="orbix-glass rounded-2xl p-4 flex items-center justify-between gap-3">
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-[#F7EFE6] truncate">
                         {u.first_name} {u.last_name || ''}
@@ -206,7 +206,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
 
             {tab === 'tasks' && (
               <div className="space-y-4">
-                <form onSubmit={handleSaveTask} className="aura-glass rounded-[24px] p-4 space-y-3">
+                <form onSubmit={handleSaveTask} className="orbix-glass rounded-[24px] p-4 space-y-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#F3D9B1]">
                     {taskForm.id ? 'Edit Task' : 'Add New Task'}
                   </p>
@@ -263,7 +263,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
                   <div className="flex gap-2">
                     <button
                       type="submit"
-                      className="flex-1 min-h-[44px] rounded-xl aura-gold-card text-[#1B120B] text-xs font-semibold"
+                      className="flex-1 min-h-[44px] rounded-xl orbix-gold-card text-[#1B120B] text-xs font-semibold"
                     >
                       {taskForm.id ? 'Update Task' : 'Create Task'}
                     </button>
@@ -291,7 +291,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
                   {data.tasks.map((t) => (
                     <div
                       key={t.id}
-                      className="aura-glass rounded-2xl p-3.5 flex items-center justify-between gap-3"
+                      className="orbix-glass rounded-2xl p-3.5 flex items-center justify-between gap-3"
                     >
                       <div className="min-w-0">
                         <p className="text-sm font-semibold text-[#F7EFE6] truncate">{t.title}</p>
@@ -335,12 +335,12 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
             {tab === 'withdraws' && (
               <div className="space-y-2.5">
                 {data.withdraws.length === 0 ? (
-                  <div className="aura-glass rounded-2xl p-6 text-center text-xs text-[#8E7763]">
+                  <div className="orbix-glass rounded-2xl p-6 text-center text-xs text-[#8E7763]">
                     No withdrawal requests yet.
                   </div>
                 ) : (
                   data.withdraws.map((w) => (
-                    <div key={w.id} className="aura-glass rounded-2xl p-4 space-y-2.5">
+                    <div key={w.id} className="orbix-glass rounded-2xl p-4 space-y-2.5">
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
                           <p className="text-sm font-semibold text-[#F7EFE6]">
@@ -385,7 +385,7 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
 
             {tab === 'broadcast' && (
               <div className="space-y-4">
-                <form onSubmit={handleBroadcast} className="aura-glass rounded-[24px] p-4 space-y-3">
+                <form onSubmit={handleBroadcast} className="orbix-glass rounded-[24px] p-4 space-y-3">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#F3D9B1]">
                     Send Broadcast Announcement
                   </p>
@@ -407,14 +407,14 @@ export function AdminPanelView({ onBack, onDataChanged }: AdminPanelViewProps) {
                   />
                   <button
                     type="submit"
-                    className="w-full min-h-[46px] rounded-xl aura-gold-card text-[#1B120B] text-xs font-semibold"
+                    className="w-full min-h-[46px] rounded-xl orbix-gold-card text-[#1B120B] text-xs font-semibold"
                   >
                     Publish Broadcast
                   </button>
                 </form>
 
                 {data.broadcasts.map((b) => (
-                  <div key={b.id} className="aura-glass rounded-2xl p-3.5 space-y-1">
+                  <div key={b.id} className="orbix-glass rounded-2xl p-3.5 space-y-1">
                     <p className="text-xs font-semibold text-[#F3D9B1]">{b.title}</p>
                     <p className="text-xs text-[#A58E79]">{b.message}</p>
                   </div>

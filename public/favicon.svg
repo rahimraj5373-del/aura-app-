@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <radialGradient id="orbixFavBg" cx="35%" cy="25%" r="80%">
+      <stop offset="0%" stop-color="#2D1D11" />
+      <stop offset="100%" stop-color="#0D0805" />
+    </radialGradient>
+    <radialGradient id="orbixFavPlanet" cx="36%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#FFF2D6" />
+      <stop offset="45%" stop-color="#DFAC72" />
+      <stop offset="100%" stop-color="#784920" />
+    </radialGradient>
+    <linearGradient id="orbixFavRing" x1="8" y1="42" x2="56" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9A6433" />
+      <stop offset="50%" stop-color="#FFECC9" />
+      <stop offset="100%" stop-color="#B77B44" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#orbixFavBg)" />
+  <rect x="1.5" y="1.5" width="61" height="61" rx="14.5" stroke="#C48A55" stroke-opacity="0.45" stroke-width="1.5" />
+  <path
+    d="M11 36C9 27 19 18 33 17C46 16 55 22 53 29"
+    stroke="url(#orbixFavRing)"
+    stroke-opacity="0.35"
+    stroke-width="2"
+    stroke-linecap="round"
+  />
+  <circle cx="32" cy="32" r="14.5" fill="url(#orbixFavPlanet)" />
+  <path
+    d="M10 35C14 43 27 44 39 39C50 34 56 27 53 21"
+    stroke="url(#orbixFavRing)"
+    stroke-width="2.4"
+    stroke-linecap="round"
+  />
+  <circle cx="49" cy="19" r="2.2" fill="#FFF2D6" />
+</svg>

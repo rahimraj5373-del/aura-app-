@@ -1,23 +1,23 @@
 import { Headphones, Layers, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useMemo, useState } from 'react';
-import { AuraLogo } from '../components/AuraLogo';
+import { OrbixLogo } from '../components/OrbixLogo';
 import { BRAND } from '../config/brand';
-import type { CommunityStats, TransactionItem, UserProfile } from '../types/aura';
+import type { CommunityStats, TransactionItem, UserProfile } from '../types/orbix';
 
-interface TvrEcosystemPageProps {
+interface OrxTokenPageProps {
   user: UserProfile;
   transactions: TransactionItem[];
   communityStats: CommunityStats;
   onOpenSupport: () => void;
 }
 
-export function AuraTokenPage({
+export function OrxTokenPage({
   user,
   transactions,
   communityStats,
   onOpenSupport,
-}: TvrEcosystemPageProps) {
+}: OrxTokenPageProps) {
   const [selectedDayIdx, setSelectedDayIdx] = useState<number | null>(null);
 
   const series = communityStats.dailyActivity;
@@ -58,26 +58,29 @@ export function AuraTokenPage({
       transition={{ duration: 0.25 }}
       className="pb-28 space-y-5"
     >
-      {/* Header matching screenshot */}
+      {/* Header */}
       <header className="flex items-center justify-between pt-2">
-        <span className="font-display text-[22px] font-semibold tracking-[0.24em] text-[#F7EFE6]">
-          {BRAND.name}<span className="text-[#C48A55]">.</span>
-        </span>
+        <div className="flex items-center gap-2.5">
+          <OrbixLogo size={28} />
+          <span className="font-display text-[22px] font-semibold tracking-[0.22em] text-[#F7EFE6] uppercase">
+            {BRAND.name}<span className="text-[#C48A55]">.</span>
+          </span>
+        </div>
         <button
           type="button"
           onClick={onOpenSupport}
           aria-label="Customer Service"
-          className="min-w-[44px] min-h-[44px] rounded-2xl aura-glass flex items-center justify-center text-[#E5BE8B]"
+          className="min-w-[44px] min-h-[44px] rounded-2xl orbix-glass flex items-center justify-center text-[#E5BE8B]"
         >
           <Headphones className="w-5 h-5" />
         </button>
       </header>
 
-      {/* Main Stats & Interactive Activity Trend Card (matching Screenshot 3 & 5) */}
-      <section className="aura-glass rounded-[24px] p-4 space-y-4">
+      {/* Main Stats & Interactive Activity Trend Card */}
+      <section className="orbix-glass rounded-[24px] p-4 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <AuraLogo size={34} />
+            <OrbixLogo size={34} />
             <p className="text-sm font-semibold text-[#F7EFE6]">
               {BRAND.symbol} <span className="text-xs font-normal text-[#A58E79]">/ Points</span>
             </p>
@@ -91,13 +94,13 @@ export function AuraTokenPage({
           <div>
             <p className="text-[#8E7763]">Total Pool</p>
             <p className="font-mono-tabular font-semibold text-[#F7EFE6] mt-0.5">
-              {communityStats.totalPoolTvr.toLocaleString()}
+              {communityStats.totalPoolOrx.toLocaleString()}
             </p>
           </div>
           <div>
             <p className="text-[#8E7763]">Total Distributed</p>
             <p className="font-mono-tabular font-semibold text-[#F7EFE6] mt-0.5">
-              {communityStats.totalDistributedTvr.toLocaleString()}
+              {communityStats.totalDistributedOrx.toLocaleString()}
             </p>
           </div>
           <div>
@@ -208,7 +211,7 @@ export function AuraTokenPage({
         </div>
       </section>
 
-      {/* Ecosystem Section matching Screenshot 4 */}
+      {/* Ecosystem Section */}
       <section className="space-y-4 pt-1">
         <div>
           <p className="text-[11px] uppercase tracking-[0.16em] text-[#C48A55]">
@@ -229,7 +232,7 @@ export function AuraTokenPage({
             <span className="font-mono-tabular text-[#8E7763]">01 / POINTS</span>
           </div>
 
-          <div className="aura-glass rounded-[24px] p-4 space-y-4">
+          <div className="orbix-glass rounded-[24px] p-4 space-y-4">
             <div className="flex items-center gap-3 pb-3 border-b border-[#C48A55]/15">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F3D9B1] to-[#C48A55] flex items-center justify-center text-[#1B120B]">
                 <Layers className="w-5 h-5" />
@@ -267,8 +270,8 @@ export function AuraTokenPage({
           </div>
         </div>
 
-        {/* TVR Allocation and Release (matching Screenshot 4 inset boxes) */}
-        <div className="aura-glass rounded-[24px] p-4 space-y-3.5">
+        {/* ORX Allocation and Release */}
+        <div className="orbix-glass rounded-[24px] p-4 space-y-3.5">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold text-[#F7EFE6]">
               {BRAND.symbol} Allocation and Release
@@ -280,14 +283,14 @@ export function AuraTokenPage({
             <div className="rounded-2xl bg-[#110B07]/85 border border-[#C48A55]/18 p-3.5">
               <p className="text-[11px] text-[#8E7763]">Total {BRAND.symbol} Allocated</p>
               <p className="font-display text-lg font-semibold text-[#F7EFE6] font-mono-tabular mt-1">
-                {communityStats.totalPoolTvr.toLocaleString()}
+                {communityStats.totalPoolOrx.toLocaleString()}
               </p>
               <p className="text-[10px] text-[#8E7763] mt-0.5">{BRAND.symbol}</p>
             </div>
             <div className="rounded-2xl bg-[#110B07]/85 border border-[#C48A55]/18 p-3.5">
               <p className="text-[11px] text-[#8E7763]">Total {BRAND.symbol} Distributed</p>
               <p className="font-display text-lg font-semibold text-[#F3D9B1] font-mono-tabular mt-1">
-                {communityStats.totalDistributedTvr.toLocaleString()}
+                {communityStats.totalDistributedOrx.toLocaleString()}
               </p>
               <p className="text-[10px] text-[#8E7763] mt-0.5">{BRAND.symbol}</p>
             </div>
@@ -301,7 +304,7 @@ export function AuraTokenPage({
         </div>
 
         {/* Your Source Breakdown */}
-        <div className="aura-glass rounded-[24px] p-4 space-y-2.5">
+        <div className="orbix-glass rounded-[24px] p-4 space-y-2.5">
           <p className="text-xs font-semibold text-[#F7EFE6]">Your Earned Breakdown</p>
           {breakdown.map((item) => (
             <div key={item.label} className="flex items-center justify-between text-xs">
@@ -320,7 +323,7 @@ export function AuraTokenPage({
             <span className="font-mono-tabular text-[#8E7763]">02 / POLICY</span>
           </div>
 
-          <div className="aura-glass rounded-[24px] p-4 flex gap-3 items-start text-xs text-[#A58E79] leading-relaxed">
+          <div className="orbix-glass rounded-[24px] p-4 flex gap-3 items-start text-xs text-[#A58E79] leading-relaxed">
             <ShieldCheck className="w-5 h-5 text-[#C48A55] shrink-0 mt-0.5" />
             <div className="space-y-1.5">
               <p className="font-semibold text-[#F7EFE6]">In-App Points Only</p>

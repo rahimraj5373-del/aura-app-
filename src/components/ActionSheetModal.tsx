@@ -14,8 +14,8 @@ import { motion } from 'motion/react';
 import { useMemo, useState } from 'react';
 import { BRAND } from '../config/brand';
 import { openExternalUrl, triggerHaptic } from '../lib/telegram';
-import type { ReferralEntry, UserProfile, WithdrawRequest } from '../types/aura';
-import { AuraLogo } from './AuraLogo';
+import type { ReferralEntry, UserProfile, WithdrawRequest } from '../types/orbix';
+import { OrbixLogo } from './OrbixLogo';
 
 export type ModalKind =
   | 'receive'
@@ -180,7 +180,7 @@ export function ActionSheetModal({
         {/* RECEIVE */}
         {kind === 'receive' && (
           <div className="space-y-4">
-            <div className="aura-glass rounded-[24px] p-5 text-center space-y-3.5">
+            <div className="orbix-glass rounded-[24px] p-5 text-center space-y-3.5">
               <div className="mx-auto w-36 h-36 rounded-2xl bg-[#F3D9B1] p-3 flex items-center justify-center shadow-lg">
                 <svg viewBox="0 0 11 11" className="w-full h-full" shapeRendering="crispEdges">
                   {qrMatrix.map((row, r) =>
@@ -198,7 +198,7 @@ export function ActionSheetModal({
               <button
                 type="button"
                 onClick={() => copyText(user.tg_id)}
-                className="w-full min-h-[46px] rounded-xl aura-gold-card text-[#1B120B] font-semibold text-sm flex items-center justify-center gap-2"
+                className="w-full min-h-[46px] rounded-xl orbix-gold-card text-[#1B120B] font-semibold text-sm flex items-center justify-center gap-2"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                 <span>{copied ? 'ID Copied' : 'Copy Account ID'}</span>
@@ -224,7 +224,7 @@ export function ActionSheetModal({
                   }}
                   className={`min-h-[42px] rounded-xl text-xs font-semibold transition-colors ${
                     transferMode === 'internal'
-                      ? 'aura-gold-card text-[#1B120B]'
+                      ? 'orbix-gold-card text-[#1B120B]'
                       : 'text-[#A58E79] hover:text-[#F3D9B1]'
                   }`}
                 >
@@ -238,7 +238,7 @@ export function ActionSheetModal({
                   }}
                   className={`min-h-[42px] rounded-xl text-xs font-semibold transition-colors ${
                     transferMode === 'withdraw'
-                      ? 'aura-gold-card text-[#1B120B]'
+                      ? 'orbix-gold-card text-[#1B120B]'
                       : 'text-[#A58E79] hover:text-[#F3D9B1]'
                   }`}
                 >
@@ -248,7 +248,7 @@ export function ActionSheetModal({
             )}
 
             <form onSubmit={handleTransferSubmit} className="space-y-3.5">
-              <div className="aura-glass rounded-2xl px-4 py-3 flex items-center justify-between text-xs">
+              <div className="orbix-glass rounded-2xl px-4 py-3 flex items-center justify-between text-xs">
                 <span className="text-[#A58E79]">Available Points</span>
                 <span className="font-mono-tabular font-semibold text-[#F3D9B1]">
                   {user.balance.toFixed(2)} {BRAND.symbol}
@@ -329,7 +329,7 @@ export function ActionSheetModal({
               <button
                 type="submit"
                 disabled={busy}
-                className="w-full min-h-[50px] rounded-2xl aura-gold-card text-[#1B120B] font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-60"
+                className="w-full min-h-[50px] rounded-2xl orbix-gold-card text-[#1B120B] font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-60"
               >
                 {showWithdrawForm ? <Wallet className="w-4 h-4" /> : <Send className="w-4 h-4" />}
                 <span>
@@ -351,7 +351,7 @@ export function ActionSheetModal({
                   {withdraws.slice(0, 5).map((w) => (
                     <div
                       key={w.id}
-                      className="aura-glass rounded-2xl px-3.5 py-2.5 flex items-center justify-between text-xs"
+                      className="orbix-glass rounded-2xl px-3.5 py-2.5 flex items-center justify-between text-xs"
                     >
                       <div className="min-w-0">
                         <p className="font-mono-tabular text-[#F7EFE6] font-medium">
@@ -380,7 +380,7 @@ export function ActionSheetModal({
 
         {/* INVITE / REFERRAL */}
         {kind === 'invite' && (() => {
-          const botUsername = (import.meta.env.VITE_BOT_USERNAME as string) || 'TavoraBot';
+          const botUsername = (import.meta.env.VITE_BOT_USERNAME as string) || 'OrbixBot';
           const appShortName = (import.meta.env.VITE_APP_SHORT_NAME as string) || 'app';
           const inviteLink = `https://t.me/${botUsername}/${appShortName}?startapp=ref_${user.tg_id}`;
           const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(
@@ -390,13 +390,13 @@ export function ActionSheetModal({
           return (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3 text-center">
-                <div className="aura-glass rounded-2xl p-3.5">
+                <div className="orbix-glass rounded-2xl p-3.5">
                   <p className="text-[11px] text-[#8E7763]">Total Invites</p>
                   <p className="font-display text-2xl font-semibold text-[#F7EFE6] font-mono-tabular mt-0.5">
                     {user.valid_invites}
                   </p>
                 </div>
-                <div className="aura-glass rounded-2xl p-3.5">
+                <div className="orbix-glass rounded-2xl p-3.5">
                   <p className="text-[11px] text-[#8E7763]">Total Earned</p>
                   <p className="font-display text-2xl font-semibold text-[#F3D9B1] font-mono-tabular mt-0.5">
                     +{user.referral_earnings.toFixed(0)}{' '}
@@ -405,7 +405,7 @@ export function ActionSheetModal({
                 </div>
               </div>
 
-              <div className="aura-glass rounded-[22px] p-4 space-y-3">
+              <div className="orbix-glass rounded-[22px] p-4 space-y-3">
                 <p className="text-xs text-[#CBB59F]">
                   Earn <span className="text-[#F3D9B1] font-semibold">+25 {BRAND.symbol}</span> for every new user who registers through your 1-level referral link.
                 </p>
@@ -434,7 +434,7 @@ export function ActionSheetModal({
                       triggerHaptic('light');
                       openExternalUrl(shareUrl);
                     }}
-                    className="min-h-[44px] rounded-xl aura-gold-card text-[#1B120B] font-semibold text-xs flex items-center justify-center gap-2"
+                    className="min-h-[44px] rounded-xl orbix-gold-card text-[#1B120B] font-semibold text-xs flex items-center justify-center gap-2"
                   >
                     <Share2 className="w-4 h-4" />
                     <span>Share Telegram</span>
@@ -447,11 +447,11 @@ export function ActionSheetModal({
                   Invited Friends ({referrals.length})
                 </p>
                 {referrals.length === 0 ? (
-                  <div className="aura-glass rounded-2xl p-4 text-center text-xs text-[#8E7763]">
+                  <div className="orbix-glass rounded-2xl p-4 text-center text-xs text-[#8E7763]">
                     No invited friends yet. Share your link above!
                   </div>
                 ) : (
-                  <div className="aura-glass rounded-2xl divide-y divide-[#C48A55]/15 overflow-hidden">
+                  <div className="orbix-glass rounded-2xl divide-y divide-[#C48A55]/15 overflow-hidden">
                     {referrals.map((r) => (
                       <div key={r.tg_id} className="px-3.5 py-2.5 flex items-center justify-between gap-2 text-xs">
                         <div className="min-w-0">
@@ -475,29 +475,29 @@ export function ActionSheetModal({
         {/* HELP */}
         {kind === 'help' && (
           <div className="space-y-3 text-xs text-[#CBB59F] leading-relaxed">
-            <div className="aura-glass rounded-2xl p-4 space-y-1.5">
+            <div className="orbix-glass rounded-2xl p-4 space-y-1.5">
               <div className="flex items-center gap-2 text-[#F3D9B1] font-semibold">
                 <HelpCircle className="w-4 h-4 text-[#C48A55]" />
                 <span>How do I earn {BRAND.symbol} points?</span>
               </div>
               <p className="text-[#A58E79]">
                 Earn in-app {BRAND.symbol} points from your registration welcome bonus, 7-day
-                Daily Check-in streaks, verified social quests, your daily free Lucky Draw spin,
-                and 1-level friend referrals.
+                Daily Check-in streaks, verified social quests, daily Node releases, your daily
+                free Lucky Draw spin, and 1-level friend referrals.
               </p>
             </div>
-            <div className="aura-glass rounded-2xl p-4 space-y-1.5">
+            <div className="orbix-glass rounded-2xl p-4 space-y-1.5">
               <div className="flex items-center gap-2 text-[#F3D9B1] font-semibold">
                 <ShieldCheck className="w-4 h-4 text-[#C48A55]" />
                 <span>How does the Referral System work?</span>
               </div>
               <p className="text-[#A58E79]">
-                Share your unique Telegram Mini App referral link from the Invite tab. When a new
+                Share your unique Telegram Mini App referral link from Promotion or Node. When a new
                 user joins for the first time through your link, you receive a fixed +25{' '}
                 {BRAND.symbol} bonus (1-level only).
               </p>
             </div>
-            <div className="aura-glass rounded-2xl p-4 space-y-1.5">
+            <div className="orbix-glass rounded-2xl p-4 space-y-1.5">
               <div className="flex items-center gap-2 text-[#F3D9B1] font-semibold">
                 <Wallet className="w-4 h-4 text-[#C48A55]" />
                 <span>How do Withdrawals work?</span>
@@ -513,7 +513,7 @@ export function ActionSheetModal({
         {/* CUSTOMER SERVICE */}
         {kind === 'support' && (
           <div className="space-y-4">
-            <div className="aura-glass rounded-[24px] p-5 text-center space-y-3">
+            <div className="orbix-glass rounded-[24px] p-5 text-center space-y-3">
               <div className="w-14 h-14 rounded-2xl bg-[#C48A55]/18 border border-[#C48A55]/35 flex items-center justify-center mx-auto text-[#F3D9B1]">
                 <Headphones className="w-7 h-7" />
               </div>
@@ -527,7 +527,7 @@ export function ActionSheetModal({
               <button
                 type="button"
                 onClick={() => openExternalUrl('https://t.me/+I7sfRF2mQgZiZjVl')}
-                className="w-full min-h-[48px] rounded-2xl aura-gold-card text-[#1B120B] font-semibold text-sm flex items-center justify-center gap-2"
+                className="w-full min-h-[48px] rounded-2xl orbix-gold-card text-[#1B120B] font-semibold text-sm flex items-center justify-center gap-2"
               >
                 <span>Open Support Group</span>
                 <ExternalLink className="w-4 h-4" />
@@ -539,8 +539,8 @@ export function ActionSheetModal({
         {/* ABOUT US */}
         {kind === 'about' && (
           <div className="space-y-4">
-            <div className="aura-glass rounded-[24px] p-4 flex items-center gap-3.5">
-              <AuraLogo size={52} />
+            <div className="orbix-glass rounded-[24px] p-4 flex items-center gap-3.5">
+              <OrbixLogo size={52} />
               <div>
                 <h3 className="font-display text-base font-semibold tracking-[0.14em] text-[#F7EFE6]">
                   {BRAND.name}
@@ -562,7 +562,7 @@ export function ActionSheetModal({
                     key={s.url}
                     type="button"
                     onClick={() => openExternalUrl(s.url)}
-                    className="aura-glass rounded-2xl p-3.5 text-left hover:border-[#F3D9B1]/45 transition-colors flex flex-col justify-between min-h-[84px]"
+                    className="orbix-glass rounded-2xl p-3.5 text-left hover:border-[#F3D9B1]/45 transition-colors flex flex-col justify-between min-h-[84px]"
                   >
                     <div className="flex items-center justify-between">
                       <span className="w-7 h-7 rounded-lg bg-[#C48A55]/20 border border-[#C48A55]/35 flex items-center justify-center text-[11px] font-bold text-[#F3D9B1]">

@@ -8,11 +8,11 @@ import {
   Wallet,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { AuraLogo } from '../components/AuraLogo';
 import type { ModalKind } from '../components/ActionSheetModal';
+import { OrbixLogo } from '../components/OrbixLogo';
 import { BRAND } from '../config/brand';
 import { triggerHaptic } from '../lib/telegram';
-import type { BroadcastMessage, TransactionItem, UserNode, UserProfile } from '../types/aura';
+import type { BroadcastMessage, TransactionItem, UserNode, UserProfile } from '../types/orbix';
 
 interface HomePageProps {
   user: UserProfile;
@@ -21,7 +21,7 @@ interface HomePageProps {
   transactions: TransactionItem[];
   labels: {
     totalBalanceTitle: string;
-    dailyTvr: string;
+    dailyOrx: string;
     receive: string;
     transfer: string;
     withdrawAction: string;
@@ -45,7 +45,7 @@ export function HomePage({
 }: HomePageProps) {
   const balanceInt = Math.floor(user.balance);
   const balanceDec = (user.balance - balanceInt).toFixed(2).slice(1);
-  const totalDailyNodeRate = userNodes.reduce((s, n) => s + n.daily_tvr, 0);
+  const totalDailyNodeRate = userNodes.reduce((s, n) => s + n.daily_orx, 0);
 
   return (
     <motion.div
@@ -56,9 +56,12 @@ export function HomePage({
     >
       {/* Top Header */}
       <header className="flex items-center justify-between pt-2">
-        <span className="font-display text-[22px] font-semibold tracking-[0.24em] text-[#F7EFE6]">
-          {BRAND.name}<span className="text-[#C48A55]">.</span>
-        </span>
+        <div className="flex items-center gap-2.5">
+          <OrbixLogo size={28} />
+          <span className="font-display text-[22px] font-semibold tracking-[0.22em] text-[#F7EFE6] uppercase">
+            {BRAND.name}<span className="text-[#C48A55]">.</span>
+          </span>
+        </div>
         <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#CBB59F]/80">
           {BRAND.symbol} / WEB3
         </span>
@@ -66,7 +69,7 @@ export function HomePage({
 
       {/* Optional Latest Broadcast */}
       {latestBroadcast && (
-        <div className="aura-glass rounded-2xl px-3.5 py-2.5 flex items-start gap-2.5">
+        <div className="orbix-glass rounded-2xl px-3.5 py-2.5 flex items-start gap-2.5">
           <Megaphone className="w-4 h-4 text-[#E5BE8B] shrink-0 mt-0.5" />
           <div className="min-w-0 text-xs">
             <span className="font-semibold text-[#F3D9B1]">{latestBroadcast.title}: </span>
@@ -75,7 +78,7 @@ export function HomePage({
         </div>
       )}
 
-      {/* Hero Total Balance (matching Screenshot 2) */}
+      {/* Hero Total Balance */}
       <section className="text-center pt-5 pb-1 space-y-2">
         <p className="text-xs font-medium tracking-[0.06em] text-[#D8C6B4]">
           {labels.totalBalanceTitle}
@@ -91,18 +94,18 @@ export function HomePage({
           <span className="text-[#C48A55] font-semibold ml-0.5">{BRAND.symbol}</span>
         </p>
 
-        {/* Daily TVR Pill */}
+        {/* Daily ORX Pill */}
         <div className="pt-1.5 flex justify-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1C140E]/85 border border-[#C48A55]/25 text-xs text-[#E5BE8B] font-mono-tabular">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E5BE8B]" />
             <span>
-              {labels.dailyTvr} +{user.daily_earned.toFixed(2)}
+              {labels.dailyOrx} +{user.daily_earned.toFixed(2)}
             </span>
           </div>
         </div>
       </section>
 
-      {/* 4 Action Buttons matching Screenshot 2 */}
+      {/* 4 Action Buttons */}
       <section className="grid grid-cols-4 gap-2.5 pt-1">
         {(
           [
@@ -119,7 +122,7 @@ export function HomePage({
               triggerHaptic('light');
               action();
             }}
-            className="aura-glass rounded-[18px] py-3.5 px-1.5 flex flex-col items-center justify-center gap-2 hover:border-[#F3D9B1]/45 active:scale-[0.97] transition-all min-h-[82px]"
+            className="orbix-glass rounded-[18px] py-3.5 px-1.5 flex flex-col items-center justify-center gap-2 hover:border-[#F3D9B1]/45 active:scale-[0.97] transition-all min-h-[82px]"
           >
             <Icon className="w-5 h-5 text-[#E5BE8B]" strokeWidth={1.7} />
             <span className="text-[11px] font-medium text-[#E8DDD0] whitespace-nowrap">
@@ -129,9 +132,9 @@ export function HomePage({
         ))}
       </section>
 
-      {/* Two Summary Cards: Token Assets + Hold Node (exact match to Screenshot 2) */}
+      {/* Two Summary Cards: Token Assets + Hold Node */}
       <section className="grid grid-cols-2 gap-3">
-        <div className="aura-gold-card rounded-[22px] p-4 text-[#1B120B] flex flex-col justify-between min-h-[108px]">
+        <div className="orbix-gold-card rounded-[22px] p-4 text-[#1B120B] flex flex-col justify-between min-h-[108px]">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 min-w-0">
               <Wallet className="w-4 h-4 shrink-0 text-[#2E1E11]" strokeWidth={1.8} />
@@ -157,7 +160,7 @@ export function HomePage({
             triggerHaptic('light');
             onGoNode();
           }}
-          className="aura-glass rounded-[22px] p-4 text-left flex flex-col justify-between min-h-[108px] hover:border-[#F3D9B1]/40 transition-colors"
+          className="orbix-glass rounded-[22px] p-4 text-left flex flex-col justify-between min-h-[108px] hover:border-[#F3D9B1]/40 transition-colors"
         >
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 min-w-0">
@@ -184,9 +187,9 @@ export function HomePage({
       {/* Tokens List Row */}
       <section className="space-y-3">
         <h2 className="text-sm font-semibold text-[#F7EFE6]">{labels.tokens}</h2>
-        <div className="aura-glass rounded-[22px] p-4 flex items-center justify-between">
+        <div className="orbix-glass rounded-[22px] p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <AuraLogo size={44} />
+            <OrbixLogo size={44} />
             <div>
               <p className="text-sm font-semibold text-[#F7EFE6]">{BRAND.symbol}</p>
               <p className="text-[11px] text-[#A58E79]">{BRAND.name}</p>
@@ -204,7 +207,7 @@ export function HomePage({
       {transactions.length > 0 && (
         <section className="space-y-2.5">
           <h3 className="text-xs uppercase tracking-[0.16em] text-[#8E7763]">Recent Activity</h3>
-          <div className="aura-glass rounded-[22px] divide-y divide-[#C48A55]/15 overflow-hidden">
+          <div className="orbix-glass rounded-[22px] divide-y divide-[#C48A55]/15 overflow-hidden">
             {transactions.slice(0, 5).map((tx) => (
               <div key={tx.id} className="px-4 py-3 flex items-center justify-between gap-3">
                 <div className="min-w-0">

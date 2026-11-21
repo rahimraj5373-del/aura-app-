@@ -1,6 +1,6 @@
 import { isSupabaseConfigured } from '../lib/supabase';
 import { getTelegramWebApp } from '../lib/telegram';
-import type { AdminOverviewResponse, BootstrapResponse, UserProfile } from '../types/aura';
+import type { AdminOverviewResponse, BootstrapResponse, UserProfile } from '../types/orbix';
 
 async function callServer<T>(action: string, payload: Record<string, unknown> = {}): Promise<T> {
   const tg = getTelegramWebApp();
@@ -15,7 +15,7 @@ async function callServer<T>(action: string, payload: Record<string, unknown> = 
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
   const useEdgeFunction = isSupabaseConfigured && Boolean(initData) && Boolean(supabaseUrl);
-  const endpoint = useEdgeFunction ? `${supabaseUrl}/functions/v1/aura-api` : '/api/tavora';
+  const endpoint = useEdgeFunction ? `${supabaseUrl}/functions/v1/orbix-api` : '/api/orbix';
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ async function callServer<T>(action: string, payload: Record<string, unknown> = 
   return data as T;
 }
 
-export const tavoraApi = {
+export const orbixApi = {
   bootstrap: () => callServer<BootstrapResponse>('bootstrap'),
   checkIn: () => callServer<BootstrapResponse>('checkin'),
   spinLuckyDraw: () =>

@@ -1,8 +1,8 @@
 export const BRAND = {
-  name: 'TAVORA',
-  symbol: 'TVR',
+  name: 'Orbix',
+  symbol: 'ORX',
   tagline: 'Connect Communities, Earn Rewards Together',
-  subLabel: 'TVR · IN-APP REWARDS',
-  // Set a custom image path/URL here if you want to replace the built-in metallic emblem
+  subLabel: 'ORX · IN-APP REWARDS',
+  // Set a custom image path/URL here if you want to replace the built-in planet emblem
   customLogoUrl: '',
 } as const;

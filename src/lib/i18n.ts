@@ -1,4 +1,4 @@
-import type { LanguageCode, TabId } from '../types/aura';
+import type { LanguageCode, TabId } from '../types/orbix';
 
 export const LANGUAGES: { code: LanguageCode; label: string; native: string }[] = [
   { code: 'en', label: 'English', native: 'English' },
@@ -10,7 +10,7 @@ export const LANGUAGES: { code: LanguageCode; label: string; native: string }[] 
 type TranslationDict = {
   nav: Record<TabId, string>;
   totalBalanceTitle: string;
-  dailyTvr: string;
+  dailyOrx: string;
   receive: string;
   transfer: string;
   withdrawAction: string;
@@ -34,9 +34,9 @@ type TranslationDict = {
 
 const DICTIONARIES: Record<LanguageCode, TranslationDict> = {
   en: {
-    nav: { home: 'Home', activity: 'Activity', tvr: 'TVR', node: 'Node', my: 'My' },
-    totalBalanceTitle: 'Total Asset Valuation · TVR',
-    dailyTvr: 'Daily TVR',
+    nav: { home: 'Home', activity: 'Activity', orx: 'ORX', node: 'Node', my: 'My' },
+    totalBalanceTitle: 'Total Asset Valuation · ORX',
+    dailyOrx: 'Daily ORX',
     receive: 'Receive',
     transfer: 'Transfer',
     withdrawAction: 'Withdraw',
@@ -50,7 +50,7 @@ const DICTIONARIES: Record<LanguageCode, TranslationDict> = {
     luckyDraw: 'Lucky Draw',
     inviteBannerTitle: 'Invite Friends, Earn Rewards',
     referralReward: '1-Level Referral Reward',
-    withdraw: 'Withdraw TVR',
+    withdraw: 'Withdraw ORX',
     adminPanel: 'Admin Panel',
     language: 'Language',
     help: 'Help',
@@ -58,9 +58,9 @@ const DICTIONARIES: Record<LanguageCode, TranslationDict> = {
     aboutUs: 'About Us',
   },
   bn: {
-    nav: { home: 'হোম', activity: 'কার্যক্রম', tvr: 'TVR', node: 'নোড', my: 'প্রোফাইল' },
-    totalBalanceTitle: 'মোট ব্যালেন্স · TVR',
-    dailyTvr: 'দৈনিক TVR',
+    nav: { home: 'হোম', activity: 'কার্যক্রম', orx: 'ORX', node: 'নোড', my: 'প্রোফাইল' },
+    totalBalanceTitle: 'মোট ব্যালেন্স · ORX',
+    dailyOrx: 'দৈনিক ORX',
     receive: 'গ্রহণ',
     transfer: 'পাঠান',
     withdrawAction: 'উত্তোলন',
@@ -82,9 +82,9 @@ const DICTIONARIES: Record<LanguageCode, TranslationDict> = {
     aboutUs: 'আমাদের সম্পর্কে',
   },
   es: {
-    nav: { home: 'Inicio', activity: 'Actividad', tvr: 'TVR', node: 'Nodo', my: 'Perfil' },
-    totalBalanceTitle: 'Balance Total · TVR',
-    dailyTvr: 'TVR Diario',
+    nav: { home: 'Inicio', activity: 'Actividad', orx: 'ORX', node: 'Nodo', my: 'Perfil' },
+    totalBalanceTitle: 'Balance Total · ORX',
+    dailyOrx: 'ORX Diario',
     receive: 'Recibir',
     transfer: 'Transferir',
     withdrawAction: 'Retirar',
@@ -98,7 +98,7 @@ const DICTIONARIES: Record<LanguageCode, TranslationDict> = {
     luckyDraw: 'Ruleta Suerte',
     inviteBannerTitle: 'Invita Amigos, Gana Recompensas',
     referralReward: 'Bono de Referido Nivel 1',
-    withdraw: 'Retirar TVR',
+    withdraw: 'Retirar ORX',
     adminPanel: 'Panel Admin',
     language: 'Idioma',
     help: 'Ayuda',
@@ -106,9 +106,9 @@ const DICTIONARIES: Record<LanguageCode, TranslationDict> = {
     aboutUs: 'Sobre Nosotros',
   },
   ar: {
-    nav: { home: 'الرئيسية', activity: 'النشاط', tvr: 'TVR', node: 'العقدة', my: 'حسابي' },
-    totalBalanceTitle: 'إجمالي الرصيد · TVR',
-    dailyTvr: 'TVR اليومي',
+    nav: { home: 'الرئيسية', activity: 'النشاط', orx: 'ORX', node: 'العقدة', my: 'حسابي' },
+    totalBalanceTitle: 'إجمالي الرصيد · ORX',
+    dailyOrx: 'ORX اليومي',
     receive: 'استلام',
     transfer: 'تحويل',
     withdrawAction: 'سحب',
@@ -122,7 +122,7 @@ const DICTIONARIES: Record<LanguageCode, TranslationDict> = {
     luckyDraw: 'عجلة الحظ',
     inviteBannerTitle: 'ادعُ أصدقاءك واربح المكافآت',
     referralReward: 'مكافأة الإحالة المباشرة',
-    withdraw: 'سحب TVR',
+    withdraw: 'سحب ORX',
     adminPanel: 'لوحة الإدارة',
     language: 'اللغة',
     help: 'المساعدة',

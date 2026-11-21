@@ -1,15 +1,15 @@
 -- =============================================================================
--- TAVORA (TVR) - Supabase PostgreSQL Schema with Row Level Security (RLS)
+-- Orbix (ORX) - Supabase PostgreSQL Schema with Row Level Security (RLS)
 -- =============================================================================
 -- Points are in-app rewards only (signup bonus, daily check-in, verified tasks,
--- free daily Lucky Draw, and 1-level referrals). No mining, no paid nodes, no ROI.
+-- free daily Lucky Draw, reward nodes, and 1-level referrals). No mining, no ROI.
 -- All mutations run exclusively on the server in Supabase Edge Functions using
 -- SUPABASE_SERVICE_ROLE_KEY after Telegram initData HMAC-SHA256 verification.
 -- =============================================================================
 
 create extension if not exists "pgcrypto";
 
--- 1. USERS TABLE (No mining columns)
+-- 1. USERS TABLE
 create table if not exists public.users (
   tg_id text primary key,
   username text,
@@ -118,16 +118,16 @@ create table if not exists public.broadcasts (
   created_at timestamptz not null default now()
 );
 
--- 10. USER NODES (IN-APP TVR POINT NODES)
+-- 10. USER NODES (IN-APP ORX POINT NODES)
 create table if not exists public.user_nodes (
   id uuid primary key default gen_random_uuid(),
   tg_id text not null references public.users(tg_id) on delete cascade,
   tier_id text not null,
   tier_name text not null,
-  daily_tvr numeric(18, 4) not null,
+  daily_orx numeric(18, 4) not null,
   duration_days integer not null,
   days_claimed integer not null default 0,
-  total_claimed_tvr numeric(18, 4) not null default 0,
+  total_claimed_orx numeric(18, 4) not null default 0,
   last_claim_date date,
   activated_at timestamptz not null default now()
 );
@@ -203,8 +203,8 @@ insert into public.tasks (id, title, subtitle, url, reward, category, is_active,
 values
   ('11111111-1111-1111-1111-111111111101', 'Discussion Group', 'Connect & Share', 'https://t.me/+I7sfRF2mQgZiZjVl', 15.0, 'telegram_group', true, 1),
   ('11111111-1111-1111-1111-111111111102', 'Official Channel', 'Follow the latest updates', 'https://t.me/tanjirul0123', 15.0, 'telegram_channel', true, 2),
-  ('11111111-1111-1111-1111-111111111103', 'Follow TAVORA on X', 'Stay updated on X (Twitter)', 'https://x.com/tanjirul_king', 12.0, 'x', true, 3),
-  ('11111111-1111-1111-1111-111111111104', 'Like TAVORA on Facebook', 'Join our Facebook community', 'https://www.facebook.com/share/18seM3aWbW/', 12.0, 'facebook', true, 4)
+  ('11111111-1111-1111-1111-111111111103', 'Follow Orbix on X', 'Stay updated on X (Twitter)', 'https://x.com/tanjirul_king', 12.0, 'x', true, 3),
+  ('11111111-1111-1111-1111-111111111104', 'Like Orbix on Facebook', 'Join our Facebook community', 'https://www.facebook.com/share/18seM3aWbW/', 12.0, 'facebook', true, 4)
 on conflict (id) do update set
   title = excluded.title,
   subtitle = excluded.subtitle,

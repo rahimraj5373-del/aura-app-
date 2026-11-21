@@ -2,18 +2,18 @@ import { AnimatePresence } from 'motion/react';
 import { useCallback, useEffect, useState } from 'react';
 import { ActionSheetModal, type ModalKind } from './components/ActionSheetModal';
 import { AdminPanelView } from './components/AdminPanelView';
-import { AuraLogo } from './components/AuraLogo';
 import { BottomNav } from './components/BottomNav';
+import { OrbixLogo } from './components/OrbixLogo';
 import { BRAND } from './config/brand';
 import { getTranslations } from './lib/i18n';
 import { initTelegramSdk } from './lib/telegram';
 import { ActivityPage } from './pages/ActivityPage';
-import { AuraTokenPage } from './pages/AuraTokenPage';
 import { HomePage } from './pages/HomePage';
 import { MyPage } from './pages/MyPage';
 import { NodePage } from './pages/NodePage';
-import { tavoraApi } from './services/api';
-import type { BootstrapResponse, LanguageCode, TabId } from './types/aura';
+import { OrxTokenPage } from './pages/OrxTokenPage';
+import { orbixApi } from './services/api';
+import type { BootstrapResponse, LanguageCode, TabId } from './types/orbix';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabId>('home');
@@ -26,7 +26,7 @@ export default function App() {
 
   const loadBootstrap = useCallback(async () => {
     try {
-      const res = await tavoraApi.bootstrap();
+      const res = await orbixApi.bootstrap();
       setData(res);
       setError(null);
     } catch (err) {
@@ -58,7 +58,7 @@ export default function App() {
         {/* Glowing Planet Background */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[360px] overflow-hidden">
           <img
-            src="/src/assets/images/aura_planet_bg_1795071065671.jpg"
+            src="/src/assets/images/orbix_planet_bg.jpg"
             alt=""
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover object-top opacity-75"
@@ -70,9 +70,9 @@ export default function App() {
         <main className="relative z-10 px-4 pt-2 min-h-dvh">
           {loading ? (
             <div className="min-h-[85dvh] flex flex-col items-center justify-center gap-4 text-center">
-              <AuraLogo size={64} />
+              <OrbixLogo size={72} />
               <div className="space-y-1">
-                <p className="font-display text-lg font-semibold tracking-[0.24em] text-[#F3D9B1]">
+                <p className="font-display text-lg font-semibold tracking-[0.24em] text-[#F3D9B1] uppercase">
                   {BRAND.name}
                 </p>
                 <p className="text-xs text-[#8E7763]">Synchronizing Telegram session...</p>
@@ -80,8 +80,8 @@ export default function App() {
             </div>
           ) : error || !data ? (
             <div className="min-h-[85dvh] flex flex-col items-center justify-center gap-4 text-center px-4">
-              <AuraLogo size={56} />
-              <div className="aura-glass rounded-[24px] p-5 space-y-3 w-full">
+              <OrbixLogo size={56} />
+              <div className="orbix-glass rounded-[24px] p-5 space-y-3 w-full">
                 <p className="text-sm font-semibold text-[#F3D9B1]">Connection Notice</p>
                 <p className="text-xs text-[#A58E79] leading-relaxed">
                   {error || 'Unable to verify session.'}
@@ -92,7 +92,7 @@ export default function App() {
                     setLoading(true);
                     loadBootstrap();
                   }}
-                  className="w-full min-h-[44px] rounded-xl aura-gold-card text-[#1B120B] text-xs font-semibold"
+                  className="w-full min-h-[44px] rounded-xl orbix-gold-card text-[#1B120B] text-xs font-semibold"
                 >
                   Retry Connection
                 </button>
@@ -127,19 +127,19 @@ export default function App() {
                   labels={t}
                   onOpenSupport={() => setModalKind('support')}
                   onStartTask={async (taskId) => {
-                    const updated = await tavoraApi.startTask(taskId);
+                    const updated = await orbixApi.startTask(taskId);
                     setData(updated);
                   }}
                   onVerifyTask={async (taskId) => {
-                    const updated = await tavoraApi.verifyTask(taskId);
+                    const updated = await orbixApi.verifyTask(taskId);
                     setData(updated);
                   }}
                   onCheckIn={async () => {
-                    const updated = await tavoraApi.checkIn();
+                    const updated = await orbixApi.checkIn();
                     setData(updated);
                   }}
                   onSpinWheel={async () => {
-                    const result = await tavoraApi.spinLuckyDraw();
+                    const result = await orbixApi.spinLuckyDraw();
                     await loadBootstrap();
                     return { segmentIndex: result.segmentIndex, reward: result.reward };
                   }}
@@ -147,9 +147,9 @@ export default function App() {
                 />
               )}
 
-              {activeTab === 'tvr' && (
-                <AuraTokenPage
-                  key="tvr"
+              {activeTab === 'orx' && (
+                <OrxTokenPage
+                  key="orx"
                   user={data.user}
                   transactions={data.transactions}
                   communityStats={data.communityStats}
@@ -166,11 +166,11 @@ export default function App() {
                   inviteBannerTitle={t.inviteBannerTitle}
                   onOpenInvite={() => setModalKind('invite')}
                   onActivateNode={async (tierId) => {
-                    const updated = await tavoraApi.activateNode(tierId);
+                    const updated = await orbixApi.activateNode(tierId);
                     setData(updated);
                   }}
                   onClaimNode={async (userNodeId) => {
-                    const updated = await tavoraApi.claimNode(userNodeId);
+                    const updated = await orbixApi.claimNode(userNodeId);
                     setData(updated);
                   }}
                 />
@@ -208,11 +208,11 @@ export default function App() {
             withdraws={data.withdraws}
             onClose={() => setModalKind(null)}
             onTransfer={async (recipient, amount) => {
-              const updated = await tavoraApi.transfer(recipient, amount);
+              const updated = await orbixApi.transfer(recipient, amount);
               setData(updated);
             }}
             onWithdraw={async (walletAddress, amount) => {
-              const updated = await tavoraApi.withdraw(walletAddress, amount);
+              const updated = await orbixApi.withdraw(walletAddress, amount);
               setData(updated);
             }}
           />

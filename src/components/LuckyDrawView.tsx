@@ -3,7 +3,8 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { BRAND } from '../config/brand';
 import { triggerHaptic } from '../lib/telegram';
-import type { UserProfile } from '../types/aura';
+import type { UserProfile } from '../types/orbix';
+import { OrbixLogo } from './OrbixLogo';
 
 interface LuckyDrawViewProps {
   user: UserProfile;
@@ -70,11 +71,11 @@ export function LuckyDrawView({ user, onBack, onSpin }: LuckyDrawViewProps) {
           type="button"
           onClick={onBack}
           aria-label="Back to Activity"
-          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl aura-glass text-[#F3D9B1]"
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl orbix-glass text-[#F3D9B1]"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <span className="font-display text-lg font-semibold tracking-[0.26em] text-[#F7EFE6]">
+        <span className="font-display text-lg font-semibold tracking-[0.26em] text-[#F7EFE6] uppercase">
           {BRAND.name}<span className="text-[#C48A55]">.</span>
         </span>
         <div className="w-[44px]" />
@@ -148,15 +149,13 @@ export function LuckyDrawView({ user, onBack, onSpin }: LuckyDrawViewProps) {
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#F3D9B1] to-[#9E6736] border-4 border-[#18100A] shadow-lg flex items-center justify-center">
-              <span className="font-display font-bold text-lg text-[#1B1109]">T</span>
-            </div>
+            <OrbixLogo size={54} className="border-2 border-[#18100A]" />
           </div>
         </div>
       </div>
 
       {winReward !== null && (
-        <div className="aura-glass rounded-[24px] p-4 text-center border-[#F3D9B1]/45">
+        <div className="orbix-glass rounded-[24px] p-4 text-center border-[#F3D9B1]/45">
           <p className="text-xs uppercase tracking-[0.18em] text-[#C48A55]">Reward Credited</p>
           <p className="font-display text-2xl font-semibold text-[#F3D9B1] mt-1 font-mono-tabular">
             +{winReward} {BRAND.symbol}
@@ -176,8 +175,8 @@ export function LuckyDrawView({ user, onBack, onSpin }: LuckyDrawViewProps) {
         onClick={handleSpin}
         className={`w-full min-h-[54px] rounded-2xl font-semibold text-base flex items-center justify-center gap-2 transition-all active:scale-[0.99] ${
           spinning || alreadySpunToday
-            ? 'aura-glass text-[#A58E79] cursor-not-allowed'
-            : 'aura-gold-card text-[#1B120B] hover:brightness-105'
+            ? 'orbix-glass text-[#A58E79] cursor-not-allowed'
+            : 'orbix-gold-card text-[#1B120B] hover:brightness-105'
         }`}
       >
         <Sparkles className="w-5 h-5" />

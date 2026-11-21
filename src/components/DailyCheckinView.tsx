@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { BRAND } from '../config/brand';
 import { triggerHaptic } from '../lib/telegram';
-import type { UserProfile } from '../types/aura';
+import type { UserProfile } from '../types/orbix';
 
 interface DailyCheckinViewProps {
   user: UserProfile;
@@ -75,18 +75,18 @@ export function DailyCheckinView({ user, onBack, onCheckIn, onRefresh }: DailyCh
           type="button"
           onClick={onBack}
           aria-label="Back to Activity"
-          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl aura-glass text-[#F3D9B1] hover:border-[#F3D9B1]/40 transition-colors"
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl orbix-glass text-[#F3D9B1] hover:border-[#F3D9B1]/40 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <span className="font-display text-lg font-semibold tracking-[0.26em] text-[#F7EFE6]">
+        <span className="font-display text-lg font-semibold tracking-[0.26em] text-[#F7EFE6] uppercase">
           {BRAND.name}<span className="text-[#C48A55]">.</span>
         </span>
         <button
           type="button"
           onClick={handleRefresh}
           aria-label="Refresh Check-in"
-          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl aura-glass text-[#C48A55] hover:text-[#F3D9B1] transition-colors"
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl orbix-glass text-[#C48A55] hover:text-[#F3D9B1] transition-colors"
         >
           <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
         </button>
@@ -101,7 +101,7 @@ export function DailyCheckinView({ user, onBack, onCheckIn, onRefresh }: DailyCh
         <p className="text-sm text-[#A58E79]">Daily check-in, accumulate in-app {BRAND.symbol} rewards</p>
 
         <div className="pt-3 pb-1">
-          <div className="font-display text-5xl font-semibold tracking-tight aura-gold-text font-mono-tabular">
+          <div className="font-display text-5xl font-semibold tracking-tight orbix-gold-text font-mono-tabular">
             +{todayReward.toFixed(1)}
           </div>
           <div className="text-xs tracking-[0.2em] uppercase text-[#CBB59F] mt-1">{BRAND.symbol}</div>
@@ -130,8 +130,8 @@ export function DailyCheckinView({ user, onBack, onCheckIn, onRefresh }: DailyCh
           onClick={handleCheckIn}
           className={`w-full min-h-[54px] rounded-2xl font-semibold text-base flex items-center justify-center gap-2 transition-all active:scale-[0.99] ${
             checkedInToday
-              ? 'aura-glass text-[#A58E79] cursor-not-allowed'
-              : 'aura-gold-card text-[#1B120B] hover:brightness-105'
+              ? 'orbix-glass text-[#A58E79] cursor-not-allowed'
+              : 'orbix-gold-card text-[#1B120B] hover:brightness-105'
           }`}
         >
           <span>
@@ -173,10 +173,10 @@ export function DailyCheckinView({ user, onBack, onCheckIn, onRefresh }: DailyCh
                   isDay7 ? 'col-span-3 flex-row items-center' : 'min-h-[92px]'
                 } ${
                   isCurrentTarget
-                    ? 'aura-gold-card text-[#1B120B]'
+                    ? 'orbix-gold-card text-[#1B120B]'
                     : isCompleted
                       ? 'bg-[#C48A55]/20 border border-[#E5BE8B]/50 text-[#F7EFE6]'
-                      : 'aura-glass text-[#CBB59F]'
+                      : 'orbix-glass text-[#CBB59F]'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
@@ -214,7 +214,7 @@ export function DailyCheckinView({ user, onBack, onCheckIn, onRefresh }: DailyCh
       </div>
 
       {/* Balance & Cumulative Summary */}
-      <div className="aura-glass rounded-[24px] p-5 grid grid-cols-2 divide-x divide-[#C48A55]/20">
+      <div className="orbix-glass rounded-[24px] p-5 grid grid-cols-2 divide-x divide-[#C48A55]/20">
         <div className="pr-4">
           <p className="text-xs text-[#A58E79]">Account Balance</p>
           <p className="font-display text-2xl font-semibold text-[#F7EFE6] mt-1 font-mono-tabular">
@@ -232,7 +232,7 @@ export function DailyCheckinView({ user, onBack, onCheckIn, onRefresh }: DailyCh
       </div>
 
       {/* Instructions */}
-      <div className="aura-glass rounded-[24px] p-4 flex gap-3 items-start">
+      <div className="orbix-glass rounded-[24px] p-4 flex gap-3 items-start">
         <Info className="w-5 h-5 text-[#C48A55] shrink-0 mt-0.5" />
         <div className="space-y-1.5 text-xs text-[#A58E79] leading-relaxed">
           <p className="font-semibold text-[#E5BE8B]">Check-in instructions</p>

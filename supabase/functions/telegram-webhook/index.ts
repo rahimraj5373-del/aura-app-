@@ -40,11 +40,11 @@ Deno.serve(async (req) => {
 
     await sendTelegram({
       text:
-        `✨ *Welcome to TAVORA*\n\n` +
-        `Complete daily check-ins, verify community quests, spin the free daily Lucky Draw, and earn in-app TVR rewards by inviting friends.\n\n` +
-        `• Welcome Bonus: *100 TVR* (In-App Rewards)\n` +
-        `• 1-Level Referral Bonus: *+25 TVR* per valid invite\n\n` +
-        `Tap *Open App* below to launch TAVORA.`,
+        `✨ *Welcome to Orbix*\n\n` +
+        `Complete daily check-ins, verify community quests, activate reward nodes, spin the free daily Lucky Draw, and earn in-app ORX rewards by inviting friends.\n\n` +
+        `• Welcome Bonus: *100 ORX* (In-App Rewards)\n` +
+        `• 1-Level Referral Bonus: *+25 ORX* per valid invite\n\n` +
+        `Tap *Open App* below to launch Orbix.`,
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
@@ -59,7 +59,7 @@ Deno.serve(async (req) => {
   } else if (text.startsWith('/admin')) {
     if (!adminTgId || fromId !== adminTgId) {
       await sendTelegram({
-        text: '⛔ Access denied. This command is restricted to the TAVORA administrator.',
+        text: '⛔ Access denied. This command is restricted to the Orbix administrator.',
       });
       return new Response('ok', { status: 200 });
     }
@@ -76,12 +76,12 @@ Deno.serve(async (req) => {
 
     await sendTelegram({
       text:
-        `🛡️ *TAVORA Admin Console*\n` +
+        `🛡️ *Orbix Admin Console*\n` +
         statsLine +
         `\nOpen the app and navigate to *My → Admin Panel* to manage users, tasks, withdrawals, and broadcasts.`,
       parse_mode: 'Markdown',
       reply_markup: {
-        inline_keyboard: [[{ text: '🛡️ Open TAVORA Admin', web_app: { url: miniAppUrl } }]],
+        inline_keyboard: [[{ text: '🛡️ Open Orbix Admin', web_app: { url: miniAppUrl } }]],
       },
     });
   }

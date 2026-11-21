@@ -11,7 +11,7 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { BRAND } from '../config/brand';
 import { triggerHaptic } from '../lib/telegram';
-import type { NodeTier, UserNode, UserProfile } from '../types/aura';
+import type { NodeTier, UserNode, UserProfile } from '../types/orbix';
 
 interface NodePageProps {
   user: UserProfile;
@@ -79,7 +79,7 @@ export function NodePage({
       triggerHaptic('success');
       setFeedback({
         type: 'ok',
-        text: `${currentTier.name} activated! Claim +${currentTier.dailyTvr} ${BRAND.symbol} daily.`,
+        text: `${currentTier.name} activated! Claim +${currentTier.dailyOrx} ${BRAND.symbol} daily.`,
       });
     } catch (err) {
       triggerHaptic('error');
@@ -100,7 +100,7 @@ export function NodePage({
       triggerHaptic('success');
       setFeedback({
         type: 'ok',
-        text: `Claimed +${currentTier.dailyTvr} ${BRAND.symbol} daily node release!`,
+        text: `Claimed +${currentTier.dailyOrx} ${BRAND.symbol} daily node release!`,
       });
     } catch (err) {
       triggerHaptic('error');
@@ -120,10 +120,10 @@ export function NodePage({
       transition={{ duration: 0.25 }}
       className="pb-28 space-y-4"
     >
-      {/* Top Invite Banner matching Screenshot 5 */}
-      <section className="aura-glass rounded-[22px] p-4 relative overflow-hidden min-h-[116px] flex items-center mt-1">
+      {/* Top Invite Banner */}
+      <section className="orbix-glass rounded-[22px] p-4 relative overflow-hidden min-h-[116px] flex items-center mt-1">
         <img
-          src="/src/assets/images/aura_planet_bg_1795071065671.jpg"
+          src="/src/assets/images/orbix_planet_bg.jpg"
           alt=""
           referrerPolicy="no-referrer"
           className="absolute inset-0 w-full h-full object-cover opacity-55"
@@ -173,8 +173,8 @@ export function NodePage({
         </svg>
       </section>
 
-      {/* Release Plan (Daily) Horizontal Tier Grid matching Screenshot 5 */}
-      <section className="aura-glass rounded-[22px] p-4 space-y-3">
+      {/* Release Plan (Daily) Horizontal Tier Grid */}
+      <section className="orbix-glass rounded-[22px] p-4 space-y-3">
         <div className="flex items-center gap-2 text-[#E8DDD0]">
           <Calendar className="w-4 h-4 text-[#C48A55]" />
           <h2 className="text-[13px] font-semibold">Release Plan (Daily)</h2>
@@ -210,7 +210,7 @@ export function NodePage({
                   />
                 </div>
                 <span className="text-[11px] font-mono-tabular font-semibold text-[#F7EFE6] whitespace-nowrap">
-                  {tier.dailyTvr} {BRAND.symbol}
+                  {tier.dailyOrx} {BRAND.symbol}
                 </span>
               </button>
             );
@@ -248,8 +248,8 @@ export function NodePage({
         </span>
       </div>
 
-      {/* Main TAVORA / NFT 3D Cube Showcase Card matching Screenshot 5 */}
-      <section className="aura-glass rounded-[26px] overflow-hidden border-[#C48A55]/30">
+      {/* Main Orbix / NFT 3D Cube Showcase Card */}
+      <section className="orbix-glass rounded-[26px] overflow-hidden border-[#C48A55]/30">
         <div className="relative h-[300px] bg-[radial-gradient(circle_at_50%_46%,rgba(229,190,139,0.24),rgba(44,29,16,0.55)_45%,#0E0906_82%)] p-4 flex flex-col justify-between">
           {/* Top overlay bar */}
           <div className="flex items-center justify-between z-10">
@@ -261,7 +261,7 @@ export function NodePage({
             </span>
           </div>
 
-          {/* 3D Isometric Golden TAVORA Cube on Pedestal */}
+          {/* 3D Isometric Golden Orbix Cube on Pedestal */}
           <div className="relative flex-1 flex items-center justify-center">
             <button
               type="button"
@@ -306,23 +306,18 @@ export function NodePage({
                 </radialGradient>
               </defs>
 
-              {/* Ambient glow beneath pedestal */}
               <ellipse cx="120" cy="176" rx="92" ry="20" fill="url(#pedestalGlow)" />
 
-              {/* Circular metallic pedestal */}
               <ellipse cx="120" cy="174" rx="76" ry="16" fill="#1F130A" stroke="url(#pedestalRim)" strokeWidth="2.5" />
               <ellipse cx="120" cy="167" rx="64" ry="12" fill="#2A1A0E" stroke={palette.primary} strokeOpacity="0.7" strokeWidth="1.5" />
               <ellipse cx="120" cy="166" rx="50" ry="8" fill="#140C07" stroke={palette.rim} strokeOpacity="0.45" strokeWidth="1" />
 
-              {/* Outer chamfered cube body */}
-              {/* Top face */}
               <polygon
                 points="120,24 182,56 120,88 58,56"
                 fill="url(#cubeTopGrad)"
                 stroke={palette.rim}
                 strokeWidth="1.8"
               />
-              {/* Left face */}
               <polygon
                 points="58,56 120,88 120,158 58,126"
                 fill="url(#cubeLeftGrad)"
@@ -330,7 +325,6 @@ export function NodePage({
                 strokeOpacity="0.75"
                 strokeWidth="1.6"
               />
-              {/* Right face */}
               <polygon
                 points="120,88 182,56 182,126 120,158"
                 fill="url(#cubeRightGrad)"
@@ -339,7 +333,6 @@ export function NodePage({
                 strokeWidth="1.6"
               />
 
-              {/* Glowing energy frame lines */}
               <polygon
                 points="120,35 166,58 120,81 74,58"
                 fill="#1D120A"
@@ -362,17 +355,34 @@ export function NodePage({
                 strokeWidth="1.4"
               />
 
-              {/* Iconic glowing TAVORA 'T' monogram inside left & right faces */}
-              <path
-                d="M78 86 L101 97 L101 104 L92 99.5 L92 124 L86 121 L86 96.5 L78 92.5 Z"
-                fill={palette.rim}
-              />
-              <path
-                d="M140 97 L163 86 L163 92.5 L155 96.5 L155 121 L149 124 L149 99.5 L140 104 Z"
-                fill={palette.rim}
-              />
+              {/* Embossed Orbix gold planet & orbit ring emblems on cube faces */}
+              <g>
+                <circle cx="89" cy="107" r="7.5" fill={palette.primary} fillOpacity="0.92" />
+                <ellipse
+                  cx="89"
+                  cy="107"
+                  rx="13.5"
+                  ry="4.2"
+                  transform="rotate(-18 89 107)"
+                  stroke={palette.rim}
+                  strokeWidth="1.6"
+                />
+                <circle cx="99" cy="99" r="1.6" fill="#FFFFFF" />
+              </g>
+              <g>
+                <circle cx="151" cy="107" r="7.5" fill={palette.rim} fillOpacity="0.95" />
+                <ellipse
+                  cx="151"
+                  cy="107"
+                  rx="13.5"
+                  ry="4.2"
+                  transform="rotate(18 151 107)"
+                  stroke={palette.primary}
+                  strokeWidth="1.6"
+                />
+                <circle cx="141" cy="99" r="1.6" fill="#FFFFFF" />
+              </g>
 
-              {/* Vertical neon seam accent bars */}
               <line x1="120" y1="88" x2="120" y2="156" stroke={palette.rim} strokeWidth="2.4" />
               <line x1="63" y1="62" x2="63" y2="124" stroke={palette.primary} strokeWidth="1.5" strokeOpacity="0.8" />
               <line x1="177" y1="62" x2="177" y2="124" stroke={palette.rim} strokeWidth="1.5" strokeOpacity="0.8" />
@@ -398,7 +408,7 @@ export function NodePage({
           </div>
         </div>
 
-        {/* Lower Details & Action Area inside Card (matching Screenshot 5) */}
+        {/* Lower Details & Action Area */}
         <div className="p-5 space-y-4 bg-[#140D08]/95 border-t border-[#C48A55]/20">
           <div className="flex items-center justify-between gap-3">
             <div>
@@ -415,13 +425,13 @@ export function NodePage({
                 type="button"
                 disabled={busyAction !== null}
                 onClick={() => handleClaim(claimableNode.id)}
-                className="min-h-[40px] px-5 rounded-full aura-gold-card text-[#1B120B] text-xs font-semibold flex items-center gap-1.5 shadow-[0_4px_16px_rgba(196,138,85,0.35)] disabled:opacity-60"
+                className="min-h-[40px] px-5 rounded-full orbix-gold-card text-[#1B120B] text-xs font-semibold flex items-center gap-1.5 shadow-[0_4px_16px_rgba(196,138,85,0.35)] disabled:opacity-60"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>
                   {busyAction === claimableNode.id
                     ? 'Claiming...'
-                    : `Claim +${currentTier.dailyTvr}`}
+                    : `Claim +${currentTier.dailyOrx}`}
                 </span>
               </button>
             ) : (
@@ -429,7 +439,7 @@ export function NodePage({
                 type="button"
                 disabled={busyAction !== null}
                 onClick={handleActivate}
-                className="min-h-[40px] px-6 rounded-full aura-gold-card text-[#1B120B] text-xs font-semibold shadow-[0_4px_16px_rgba(196,138,85,0.35)] disabled:opacity-60"
+                className="min-h-[40px] px-6 rounded-full orbix-gold-card text-[#1B120B] text-xs font-semibold shadow-[0_4px_16px_rgba(196,138,85,0.35)] disabled:opacity-60"
               >
                 {busyAction === 'activate' ? 'Activating...' : 'Activate'}
               </button>
@@ -448,12 +458,12 @@ export function NodePage({
             </div>
           )}
 
-          {/* 2x2 Node Specs matching Screenshot 5 */}
+          {/* 2x2 Node Specs */}
           <div className="grid grid-cols-2 gap-4 pt-1">
             <div className="space-y-1 pr-3 border-r border-[#C48A55]/15">
               <p className="text-[11px] text-[#8E7763]">Activation Cost</p>
               <p className="font-display text-lg font-semibold text-[#F7EFE6] font-mono-tabular">
-                {currentTier.costTvr}{' '}
+                {currentTier.costOrx}{' '}
                 <span className="text-xs font-normal text-[#CBB59F]">{BRAND.symbol}</span>
               </p>
               <p className="text-[10px] text-[#8E7763]">In-app {BRAND.symbol} points</p>
@@ -462,7 +472,7 @@ export function NodePage({
             <div className="space-y-1 pl-1">
               <p className="text-[11px] text-[#8E7763]">Daily {BRAND.symbol}</p>
               <p className="font-display text-lg font-semibold text-[#F3D9B1] font-mono-tabular">
-                +{currentTier.dailyTvr}
+                +{currentTier.dailyOrx}
               </p>
               <p className="text-[10px] text-[#8E7763]">Daily point release</p>
             </div>
@@ -478,7 +488,7 @@ export function NodePage({
             <div className="space-y-1 pl-1">
               <p className="text-[11px] text-[#8E7763]">Total {BRAND.symbol} Earnings</p>
               <p className="font-display text-lg font-semibold text-[#F7EFE6] font-mono-tabular">
-                {currentTier.totalEarningsTvr}{' '}
+                {currentTier.totalEarningsOrx}{' '}
                 <span className="text-xs font-normal text-[#CBB59F]">{BRAND.symbol}</span>
               </p>
             </div>
@@ -526,7 +536,7 @@ export function NodePage({
               <div className="mt-2 pt-2 space-y-2.5 text-xs border-t border-[#C48A55]/12">
                 <p className="text-[#A58E79] leading-relaxed">
                   Activate {currentTier.name} using your earned in-app {BRAND.symbol} balance.
-                  Once active, return daily to claim +{currentTier.dailyTvr} {BRAND.symbol} for{' '}
+                  Once active, return daily to claim +{currentTier.dailyOrx} {BRAND.symbol} for{' '}
                   {currentTier.durationDays} days directly on the server.
                 </p>
 
@@ -548,7 +558,7 @@ export function NodePage({
                               {unit.tier_name} · Day {unit.days_claimed}/{unit.duration_days}
                             </p>
                             <p className="text-[11px] text-[#8E7763]">
-                              Claimed {unit.total_claimed_tvr} {BRAND.symbol}
+                              Claimed {unit.total_claimed_orx} {BRAND.symbol}
                             </p>
                           </div>
                           {finished ? (
@@ -563,9 +573,9 @@ export function NodePage({
                               type="button"
                               disabled={busyAction !== null}
                               onClick={() => handleClaim(unit.id)}
-                              className="px-3 py-1.5 rounded-lg aura-gold-card text-[#1B120B] font-semibold text-[11px]"
+                              className="px-3 py-1.5 rounded-lg orbix-gold-card text-[#1B120B] font-semibold text-[11px]"
                             >
-                              {busyAction === unit.id ? '...' : `Claim +${unit.daily_tvr}`}
+                              {busyAction === unit.id ? '...' : `Claim +${unit.daily_orx}`}
                             </button>
                           )}
                         </div>

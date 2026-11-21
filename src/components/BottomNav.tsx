@@ -1,6 +1,6 @@
 import { BarChart3, Box, CalendarDays, Home, User } from 'lucide-react';
 import { triggerHaptic } from '../lib/telegram';
-import type { TabId } from '../types/aura';
+import type { TabId } from '../types/orbix';
 
 interface BottomNavProps {
   activeTab: TabId;
@@ -11,7 +11,7 @@ interface BottomNavProps {
 const TAB_ITEMS: { id: TabId; icon: typeof Home }[] = [
   { id: 'home', icon: Home },
   { id: 'activity', icon: CalendarDays },
-  { id: 'tvr', icon: BarChart3 },
+  { id: 'orx', icon: BarChart3 },
   { id: 'node', icon: Box },
   { id: 'my', icon: User },
 ];

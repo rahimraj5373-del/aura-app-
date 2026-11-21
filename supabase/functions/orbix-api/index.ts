@@ -10,7 +10,7 @@ const corsHeaders = {
 const CHECKIN_REWARDS = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 7.0];
 const REFERRAL_BONUS = 25.0;
 const MIN_WITHDRAW = 50.0;
-const TOTAL_POOL_TVR = 900_000_000;
+const TOTAL_POOL_ORX = 900_000_000;
 
 const WHEEL_SEGMENTS = [
   { reward: 0.5, weight: 30 },
@@ -24,13 +24,13 @@ const WHEEL_SEGMENTS = [
 ];
 
 const NODE_TIERS = [
-  { id: 'node_s', indexLabel: '01', name: 'Node S', subtitle: 'Starter Reward Node', costTvr: 120, dailyTvr: 1, durationDays: 200, totalEarningsTvr: 200, saleQuantity: 1000000, baseProgressPct: 36 },
-  { id: 'node_1', indexLabel: '02', name: 'Node 1', subtitle: 'Bronze Core Node', costTvr: 1000, dailyTvr: 20, durationDays: 90, totalEarningsTvr: 1800, saleQuantity: 200000, baseProgressPct: 42 },
-  { id: 'node_2', indexLabel: '03', name: 'Node 2', subtitle: 'Amber Relay Node', costTvr: 3500, dailyTvr: 80, durationDays: 90, totalEarningsTvr: 7200, saleQuantity: 50000, baseProgressPct: 28 },
-  { id: 'node_3', indexLabel: '04', name: 'Node 3', subtitle: 'Gilded Vault Node', costTvr: 10000, dailyTvr: 250, durationDays: 80, totalEarningsTvr: 20000, saleQuantity: 15000, baseProgressPct: 19 },
-  { id: 'node_4', indexLabel: '05', name: 'Node 4', subtitle: 'Solaris Cluster Node', costTvr: 18000, dailyTvr: 450, durationDays: 80, totalEarningsTvr: 36000, saleQuantity: 5000, baseProgressPct: 14 },
-  { id: 'node_5', indexLabel: '06', name: 'Node 5', subtitle: 'Aurelia Apex Node', costTvr: 35000, dailyTvr: 900, durationDays: 75, totalEarningsTvr: 67500, saleQuantity: 2000, baseProgressPct: 9 },
-  { id: 'node_6', indexLabel: '07', name: 'Node 6', subtitle: 'Genesis Sovereign Node', costTvr: 75000, dailyTvr: 2000, durationDays: 75, totalEarningsTvr: 150000, saleQuantity: 500, baseProgressPct: 5 },
+  { id: 'node_s', indexLabel: '01', name: 'Node S', subtitle: 'Starter Reward Node', costOrx: 120, dailyOrx: 1, durationDays: 200, totalEarningsOrx: 200, saleQuantity: 1000000, baseProgressPct: 36 },
+  { id: 'node_1', indexLabel: '02', name: 'Node 1', subtitle: 'Bronze Core Node', costOrx: 1000, dailyOrx: 20, durationDays: 90, totalEarningsOrx: 1800, saleQuantity: 200000, baseProgressPct: 42 },
+  { id: 'node_2', indexLabel: '03', name: 'Node 2', subtitle: 'Amber Relay Node', costOrx: 3500, dailyOrx: 80, durationDays: 90, totalEarningsOrx: 7200, saleQuantity: 50000, baseProgressPct: 28 },
+  { id: 'node_3', indexLabel: '04', name: 'Node 3', subtitle: 'Gilded Vault Node', costOrx: 10000, dailyOrx: 250, durationDays: 80, totalEarningsOrx: 20000, saleQuantity: 15000, baseProgressPct: 19 },
+  { id: 'node_4', indexLabel: '05', name: 'Node 4', subtitle: 'Solaris Cluster Node', costOrx: 18000, dailyOrx: 450, durationDays: 80, totalEarningsOrx: 36000, saleQuantity: 5000, baseProgressPct: 14 },
+  { id: 'node_5', indexLabel: '06', name: 'Node 5', subtitle: 'Aurelia Apex Node', costOrx: 35000, dailyOrx: 900, durationDays: 75, totalEarningsOrx: 67500, saleQuantity: 2000, baseProgressPct: 9 },
+  { id: 'node_6', indexLabel: '07', name: 'Node 6', subtitle: 'Genesis Sovereign Node', costOrx: 75000, dailyOrx: 2000, durationDays: 75, totalEarningsOrx: 150000, saleQuantity: 500, baseProgressPct: 5 },
 ];
 
 function json(data: unknown, status = 200) {
@@ -162,7 +162,7 @@ Deno.serve(async (req) => {
         tg_id: tgId,
         type: 'signup',
         amount: 100,
-        description: 'Welcome TAVORA registration bonus',
+        description: 'Welcome Orbix registration bonus',
       });
 
       if (referredBy) {
@@ -270,7 +270,7 @@ Deno.serve(async (req) => {
         tg_id: tgId,
         type: 'lucky_draw',
         amount: picked.reward,
-        description: `Lucky Draw Wheel Win (+${picked.reward} TVR)`,
+        description: `Lucky Draw Wheel Win (+${picked.reward} ORX)`,
       });
 
       const { data: updatedUser } = await supabase.from('users').select('*').eq('tg_id', tgId).single();
@@ -351,24 +351,24 @@ Deno.serve(async (req) => {
       const tierId = String(body.tierId ?? '');
       const tier = NODE_TIERS.find((n) => n.id === tierId);
       if (!tier) return json({ error: 'Node tier not found' }, 404);
-      if (Number(user.balance) < tier.costTvr) {
-        const needed = Number((tier.costTvr - Number(user.balance)).toFixed(2));
-        return json({ error: `Insufficient TVR balance — earn ${needed} more TVR to activate ${tier.name}` }, 400);
+      if (Number(user.balance) < tier.costOrx) {
+        const needed = Number((tier.costOrx - Number(user.balance)).toFixed(2));
+        return json({ error: `Insufficient ORX balance — earn ${needed} more ORX to activate ${tier.name}` }, 400);
       }
 
-      await supabase.from('users').update({ balance: Number(user.balance) - tier.costTvr }).eq('tg_id', tgId);
+      await supabase.from('users').update({ balance: Number(user.balance) - tier.costOrx }).eq('tg_id', tgId);
       await supabase.from('user_nodes').insert({
         tg_id: tgId,
         tier_id: tier.id,
         tier_name: tier.name,
-        daily_tvr: tier.dailyTvr,
+        daily_orx: tier.dailyOrx,
         duration_days: tier.durationDays,
       });
       await supabase.from('transactions').insert({
         tg_id: tgId,
         type: 'node_activate',
-        amount: -tier.costTvr,
-        description: `Activated ${tier.name} (+${tier.dailyTvr} TVR/day)`,
+        amount: -tier.costOrx,
+        description: `Activated ${tier.name} (+${tier.dailyOrx} ORX/day)`,
       });
     } else if (action === 'node/claim') {
       const userNodeId = String(body.userNodeId ?? '');
@@ -389,14 +389,14 @@ Deno.serve(async (req) => {
       }
 
       const nextDays = Number(owned.days_claimed) + 1;
-      const dailyReward = Number(owned.daily_tvr);
+      const dailyReward = Number(owned.daily_orx);
 
       await supabase
         .from('user_nodes')
         .update({
           days_claimed: nextDays,
           last_claim_date: today,
-          total_claimed_tvr: Number(owned.total_claimed_tvr) + dailyReward,
+          total_claimed_orx: Number(owned.total_claimed_orx) + dailyReward,
         })
         .eq('id', userNodeId);
 
@@ -421,7 +421,7 @@ Deno.serve(async (req) => {
         return json({ error: 'Invalid recipient or amount' }, 400);
       }
       if (amount > Number(user.balance)) {
-        return json({ error: 'Insufficient TVR balance' }, 400);
+        return json({ error: 'Insufficient ORX balance' }, 400);
       }
       const { data: recipient } = await supabase
         .from('users')
@@ -446,10 +446,10 @@ Deno.serve(async (req) => {
         return json({ error: 'Enter a valid destination address (min 16 characters)' }, 400);
       }
       if (!Number.isFinite(amount) || amount < MIN_WITHDRAW) {
-        return json({ error: `Minimum withdrawal is ${MIN_WITHDRAW} TVR` }, 400);
+        return json({ error: `Minimum withdrawal is ${MIN_WITHDRAW} ORX` }, 400);
       }
       if (amount > Number(user.balance)) {
-        return json({ error: 'Insufficient TVR balance' }, 400);
+        return json({ error: 'Insufficient ORX balance' }, 400);
       }
 
       await supabase.from('users').update({ balance: Number(user.balance) - amount }).eq('tg_id', tgId);
@@ -491,7 +491,7 @@ Deno.serve(async (req) => {
           broadcasts: broadcasts ?? [],
           stats: {
             totalUsers: (users ?? []).length,
-            totalTvrSupply: (users ?? []).reduce((s, u) => s + Number(u.balance), 0),
+            totalOrxSupply: (users ?? []).reduce((s, u) => s + Number(u.balance), 0),
             pendingWithdraws: (withdraws ?? []).filter((w) => w.status === 'pending').length,
           },
         });
@@ -550,7 +550,7 @@ Deno.serve(async (req) => {
               tg_id: wr.tg_id,
               type: 'withdraw_refund',
               amount: Number(wr.amount),
-              description: 'Withdraw request rejected — TVR refunded',
+              description: 'Withdraw request rejected — ORX refunded',
             });
           }
         }
@@ -558,7 +558,7 @@ Deno.serve(async (req) => {
       }
 
       if (action === 'admin/broadcast') {
-        const title = String(body.title ?? '').trim() || 'TAVORA Announcement';
+        const title = String(body.title ?? '').trim() || 'Orbix Announcement';
         const message = String(body.message ?? '').trim();
         if (!message) return json({ error: 'Broadcast message is required' }, 400);
 
@@ -614,7 +614,7 @@ Deno.serve(async (req) => {
     ]);
 
     const totalUsers = (allBalances ?? []).length;
-    const totalDistributedTvr = (allBalances ?? []).reduce((s, r) => s + Number(r.balance), 0);
+    const totalDistributedOrx = (allBalances ?? []).reduce((s, r) => s + Number(r.balance), 0);
 
     const dailyActivity = [];
     for (let i = 6; i >= 0; i--) {
@@ -653,8 +653,8 @@ Deno.serve(async (req) => {
       latestBroadcast: latestBroadcast ?? null,
       communityStats: {
         totalUsers,
-        totalPoolTvr: TOTAL_POOL_TVR,
-        totalDistributedTvr: Number(totalDistributedTvr.toFixed(2)),
+        totalPoolOrx: TOTAL_POOL_ORX,
+        totalDistributedOrx: Number(totalDistributedOrx.toFixed(2)),
         dailyActivity,
       },
       serverTime: new Date().toISOString(),

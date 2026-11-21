@@ -12,7 +12,7 @@ import { useState } from 'react';
 import type { ModalKind } from '../components/ActionSheetModal';
 import { BRAND } from '../config/brand';
 import { LANGUAGES } from '../lib/i18n';
-import type { LanguageCode, UserProfile } from '../types/aura';
+import type { LanguageCode, UserProfile } from '../types/orbix';
 
 interface MyPageProps {
   user: UserProfile;
@@ -53,7 +53,7 @@ export function MyPage({
       transition={{ duration: 0.25 }}
       className="pb-28 space-y-6"
     >
-      {/* Profile Avatar with Orbital Ring matching Screenshot 1 */}
+      {/* Profile Avatar with Orbital Ring */}
       <section className="pt-8 pb-2 flex flex-col items-center text-center space-y-3">
         <div className="relative flex items-center justify-center">
           <div className="pointer-events-none absolute w-44 h-20 rounded-[100%] border border-[#C48A55]/25 -rotate-12" />
@@ -82,7 +82,7 @@ export function MyPage({
         </div>
       </section>
 
-      <section className="aura-glass rounded-[24px] divide-y divide-[#C48A55]/15 overflow-hidden">
+      <section className="orbix-glass rounded-[24px] divide-y divide-[#C48A55]/15 overflow-hidden">
         <button
           type="button"
           onClick={() => onOpenModal('withdraw')}
@@ -146,7 +146,7 @@ export function MyPage({
                   }}
                   className={`min-h-[40px] rounded-xl text-xs font-medium px-3 flex items-center justify-between border transition-colors ${
                     language === lang.code
-                      ? 'aura-gold-card text-[#1B120B] border-transparent font-semibold'
+                      ? 'orbix-gold-card text-[#1B120B] border-transparent font-semibold'
                       : 'bg-[#1D140D] border-[#C48A55]/25 text-[#CBB59F]'
                   }`}
                 >
@@ -198,7 +198,7 @@ export function MyPage({
       <footer className="pt-4 text-center space-y-2">
         <div className="flex items-center justify-center gap-3">
           <span className="h-px w-12 bg-[#C48A55]/30" />
-          <span className="font-display text-lg font-semibold tracking-[0.3em] text-[#CBB59F]">
+          <span className="font-display text-lg font-semibold tracking-[0.3em] text-[#CBB59F] uppercase">
             {BRAND.name}.
           </span>
           <span className="h-px w-12 bg-[#C48A55]/30" />

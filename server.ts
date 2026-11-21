@@ -17,9 +17,9 @@ import type {
   UserProfile,
   UserTask,
   WithdrawRequest,
-} from './src/types/aura.ts';
+} from './src/types/orbix.ts';
 
-interface TavoraDatabase {
+interface OrbixDatabase {
   users: Record<string, UserProfile>;
   tasks: TaskItem[];
   userTasks: Record<string, Record<string, UserTask>>;
@@ -31,12 +31,12 @@ interface TavoraDatabase {
 }
 
 const DATA_DIR = path.resolve(process.cwd(), '.data');
-const DB_FILE = path.join(DATA_DIR, 'tavora-db.json');
+const DB_FILE = path.join(DATA_DIR, 'orbix-db.json');
 
 const CHECKIN_REWARDS = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 7.0];
 const REFERRAL_BONUS = 25.0;
 const MIN_WITHDRAW = 50.0;
-const TOTAL_POOL_TVR = 900_000_000;
+const TOTAL_POOL_ORX = 900_000_000;
 
 const WHEEL_SEGMENTS = [
   { reward: 0.5, weight: 30 },
@@ -55,10 +55,10 @@ const NODE_TIERS: NodeTier[] = [
     indexLabel: '01',
     name: 'Node S',
     subtitle: 'Starter Reward Node',
-    costTvr: 120,
-    dailyTvr: 1,
+    costOrx: 120,
+    dailyOrx: 1,
     durationDays: 200,
-    totalEarningsTvr: 200,
+    totalEarningsOrx: 200,
     saleQuantity: 1000000,
     baseProgressPct: 36,
   },
@@ -67,10 +67,10 @@ const NODE_TIERS: NodeTier[] = [
     indexLabel: '02',
     name: 'Node 1',
     subtitle: 'Bronze Core Node',
-    costTvr: 1000,
-    dailyTvr: 20,
+    costOrx: 1000,
+    dailyOrx: 20,
     durationDays: 90,
-    totalEarningsTvr: 1800,
+    totalEarningsOrx: 1800,
     saleQuantity: 200000,
     baseProgressPct: 42,
   },
@@ -79,10 +79,10 @@ const NODE_TIERS: NodeTier[] = [
     indexLabel: '03',
     name: 'Node 2',
     subtitle: 'Amber Relay Node',
-    costTvr: 3500,
-    dailyTvr: 80,
+    costOrx: 3500,
+    dailyOrx: 80,
     durationDays: 90,
-    totalEarningsTvr: 7200,
+    totalEarningsOrx: 7200,
     saleQuantity: 50000,
     baseProgressPct: 28,
   },
@@ -91,10 +91,10 @@ const NODE_TIERS: NodeTier[] = [
     indexLabel: '04',
     name: 'Node 3',
     subtitle: 'Gilded Vault Node',
-    costTvr: 10000,
-    dailyTvr: 250,
+    costOrx: 10000,
+    dailyOrx: 250,
     durationDays: 80,
-    totalEarningsTvr: 20000,
+    totalEarningsOrx: 20000,
     saleQuantity: 15000,
     baseProgressPct: 19,
   },
@@ -103,10 +103,10 @@ const NODE_TIERS: NodeTier[] = [
     indexLabel: '05',
     name: 'Node 4',
     subtitle: 'Solaris Cluster Node',
-    costTvr: 18000,
-    dailyTvr: 450,
+    costOrx: 18000,
+    dailyOrx: 450,
     durationDays: 80,
-    totalEarningsTvr: 36000,
+    totalEarningsOrx: 36000,
     saleQuantity: 5000,
     baseProgressPct: 14,
   },
@@ -115,10 +115,10 @@ const NODE_TIERS: NodeTier[] = [
     indexLabel: '06',
     name: 'Node 5',
     subtitle: 'Aurelia Apex Node',
-    costTvr: 35000,
-    dailyTvr: 900,
+    costOrx: 35000,
+    dailyOrx: 900,
     durationDays: 75,
-    totalEarningsTvr: 67500,
+    totalEarningsOrx: 67500,
     saleQuantity: 2000,
     baseProgressPct: 9,
   },
@@ -127,10 +127,10 @@ const NODE_TIERS: NodeTier[] = [
     indexLabel: '07',
     name: 'Node 6',
     subtitle: 'Genesis Sovereign Node',
-    costTvr: 75000,
-    dailyTvr: 2000,
+    costOrx: 75000,
+    dailyOrx: 2000,
     durationDays: 75,
-    totalEarningsTvr: 150000,
+    totalEarningsOrx: 150000,
     saleQuantity: 500,
     baseProgressPct: 5,
   },
@@ -159,7 +159,7 @@ const DEFAULT_TASKS: TaskItem[] = [
   },
   {
     id: '11111111-1111-1111-1111-111111111103',
-    title: 'Follow TAVORA on X',
+    title: 'Follow Orbix on X',
     subtitle: 'Stay updated on X (Twitter)',
     url: 'https://x.com/tanjirul_king',
     reward: 12,
@@ -169,7 +169,7 @@ const DEFAULT_TASKS: TaskItem[] = [
   },
   {
     id: '11111111-1111-1111-1111-111111111104',
-    title: 'Like TAVORA on Facebook',
+    title: 'Like Orbix on Facebook',
     subtitle: 'Join our Facebook community',
     url: 'https://www.facebook.com/share/18seM3aWbW/',
     reward: 12,
@@ -179,13 +179,13 @@ const DEFAULT_TASKS: TaskItem[] = [
   },
 ];
 
-function loadDb(): TavoraDatabase {
+function loadDb(): OrbixDatabase {
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
   if (fs.existsSync(DB_FILE)) {
     try {
-      const parsed = JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) as TavoraDatabase;
+      const parsed = JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) as OrbixDatabase;
       return {
         users: parsed.users || {},
         tasks: parsed.tasks?.length ? parsed.tasks : [...DEFAULT_TASKS],
@@ -212,7 +212,7 @@ function loadDb(): TavoraDatabase {
   };
 }
 
-let db: TavoraDatabase = loadDb();
+let db: OrbixDatabase = loadDb();
 
 function saveDb(): void {
   if (!fs.existsSync(DATA_DIR)) {
@@ -310,9 +310,9 @@ function resolveTelegramRequest(req: express.Request): {
     return {
       user: {
         id: 999000111,
-        first_name: 'Tavora',
+        first_name: 'Orbix',
         last_name: 'Pioneer',
-        username: 'tavora_pioneer',
+        username: 'orbix_pioneer',
       },
       startParam,
     };
@@ -366,7 +366,7 @@ function ensureUser(tgUser: VerifiedTgUser, startParam: string | null): UserProf
       created_at: new Date().toISOString(),
     };
     db.users[tgId] = user;
-    pushTx(tgId, 'signup', 100, 'Welcome TAVORA registration bonus');
+    pushTx(tgId, 'signup', 100, 'Welcome Orbix registration bonus');
     saveDb();
   } else {
     user.username = tgUser.username ?? user.username;
@@ -381,7 +381,7 @@ function buildCommunityStats(): CommunityStats {
   const allUsers = Object.values(db.users);
   const allTx = Object.values(db.transactions).flat();
 
-  const totalDistributedTvr = allUsers.reduce((sum, u) => sum + u.balance, 0);
+  const totalDistributedOrx = allUsers.reduce((sum, u) => sum + u.balance, 0);
 
   const dailyActivity: DailyActivityPoint[] = [];
   for (let i = 6; i >= 0; i--) {
@@ -400,8 +400,8 @@ function buildCommunityStats(): CommunityStats {
 
   return {
     totalUsers: allUsers.length,
-    totalPoolTvr: TOTAL_POOL_TVR,
-    totalDistributedTvr: Number(totalDistributedTvr.toFixed(2)),
+    totalPoolOrx: TOTAL_POOL_ORX,
+    totalDistributedOrx: Number(totalDistributedOrx.toFixed(2)),
     dailyActivity,
   };
 }
@@ -433,7 +433,7 @@ async function startServer() {
   const app = express();
   app.use(express.json());
 
-  app.post('/api/tavora', async (req, res) => {
+  app.post('/api/orbix', async (req, res) => {
     try {
       const { user: tgUser, startParam } = resolveTelegramRequest(req);
       const tgId = String(tgUser.id);
@@ -468,7 +468,7 @@ async function startServer() {
         user.balance = Number((user.balance + picked.reward).toFixed(4));
         user.daily_earned = Number((user.daily_earned + picked.reward).toFixed(4));
         user.last_spin_date = today;
-        pushTx(tgId, 'lucky_draw', picked.reward, `Lucky Draw Wheel Win (+${picked.reward} TVR)`);
+        pushTx(tgId, 'lucky_draw', picked.reward, `Lucky Draw Wheel Win (+${picked.reward} ORX)`);
         saveDb();
         return res.json({
           segmentIndex: picked.index,
@@ -524,27 +524,27 @@ async function startServer() {
         if (!tier) {
           return res.status(404).json({ error: 'Node tier not found' });
         }
-        if (user.balance < tier.costTvr) {
-          const needed = Number((tier.costTvr - user.balance).toFixed(2));
+        if (user.balance < tier.costOrx) {
+          const needed = Number((tier.costOrx - user.balance).toFixed(2));
           return res.status(400).json({
-            error: `Insufficient TVR balance — earn ${needed} more TVR to activate ${tier.name}`,
+            error: `Insufficient ORX balance — earn ${needed} more ORX to activate ${tier.name}`,
           });
         }
-        user.balance = Number((user.balance - tier.costTvr).toFixed(4));
+        user.balance = Number((user.balance - tier.costOrx).toFixed(4));
         if (!db.userNodes[tgId]) db.userNodes[tgId] = [];
         db.userNodes[tgId].unshift({
           id: crypto.randomUUID(),
           tg_id: tgId,
           tier_id: tier.id,
           tier_name: tier.name,
-          daily_tvr: tier.dailyTvr,
+          daily_orx: tier.dailyOrx,
           duration_days: tier.durationDays,
           days_claimed: 0,
-          total_claimed_tvr: 0,
+          total_claimed_orx: 0,
           last_claim_date: null,
           activated_at: new Date().toISOString(),
         });
-        pushTx(tgId, 'node_activate', -tier.costTvr, `Activated ${tier.name} (+${tier.dailyTvr} TVR/day)`);
+        pushTx(tgId, 'node_activate', -tier.costOrx, `Activated ${tier.name} (+${tier.dailyOrx} ORX/day)`);
         saveDb();
       } else if (action === 'node/claim') {
         const userNodeId = String(req.body?.userNodeId || '');
@@ -562,10 +562,10 @@ async function startServer() {
         }
         owned.days_claimed += 1;
         owned.last_claim_date = today;
-        owned.total_claimed_tvr = Number((owned.total_claimed_tvr + owned.daily_tvr).toFixed(4));
-        user.balance = Number((user.balance + owned.daily_tvr).toFixed(4));
-        user.daily_earned = Number((user.daily_earned + owned.daily_tvr).toFixed(4));
-        pushTx(tgId, 'node_claim', owned.daily_tvr, `${owned.tier_name} Daily Release (Day ${owned.days_claimed}/${owned.duration_days})`);
+        owned.total_claimed_orx = Number((owned.total_claimed_orx + owned.daily_orx).toFixed(4));
+        user.balance = Number((user.balance + owned.daily_orx).toFixed(4));
+        user.daily_earned = Number((user.daily_earned + owned.daily_orx).toFixed(4));
+        pushTx(tgId, 'node_claim', owned.daily_orx, `${owned.tier_name} Daily Release (Day ${owned.days_claimed}/${owned.duration_days})`);
         saveDb();
       } else if (action === 'transfer') {
         const recipientRaw = String(req.body?.recipient || '').trim().replace(/^@/, '').toLowerCase();
@@ -574,7 +574,7 @@ async function startServer() {
           return res.status(400).json({ error: 'Invalid recipient or amount' });
         }
         if (amount > user.balance) {
-          return res.status(400).json({ error: 'Insufficient TVR balance' });
+          return res.status(400).json({ error: 'Insufficient ORX balance' });
         }
         const recipient = Object.values(db.users).find(
           (u) => u.tg_id === recipientRaw || (u.username && u.username.toLowerCase() === recipientRaw)
@@ -594,10 +594,10 @@ async function startServer() {
           return res.status(400).json({ error: 'Enter a valid destination address (min 16 characters)' });
         }
         if (!Number.isFinite(amount) || amount < MIN_WITHDRAW) {
-          return res.status(400).json({ error: `Minimum withdrawal is ${MIN_WITHDRAW} TVR` });
+          return res.status(400).json({ error: `Minimum withdrawal is ${MIN_WITHDRAW} ORX` });
         }
         if (amount > user.balance) {
-          return res.status(400).json({ error: 'Insufficient TVR balance' });
+          return res.status(400).json({ error: 'Insufficient ORX balance' });
         }
         user.balance = Number((user.balance - amount).toFixed(4));
         db.withdraws.unshift({
@@ -629,7 +629,7 @@ async function startServer() {
             broadcasts: db.broadcasts,
             stats: {
               totalUsers: allUsers.length,
-              totalTvrSupply: allUsers.reduce((sum, u) => sum + u.balance, 0),
+              totalOrxSupply: allUsers.reduce((sum, u) => sum + u.balance, 0),
               pendingWithdraws: db.withdraws.filter((w) => w.status === 'pending').length,
             },
           });
@@ -685,14 +685,14 @@ async function startServer() {
           wr.reviewed_at = new Date().toISOString();
           if (decision === 'rejected' && db.users[wr.tg_id]) {
             db.users[wr.tg_id].balance = Number((db.users[wr.tg_id].balance + wr.amount).toFixed(4));
-            pushTx(wr.tg_id, 'withdraw_refund', wr.amount, 'Withdraw request rejected — TVR refunded');
+            pushTx(wr.tg_id, 'withdraw_refund', wr.amount, 'Withdraw request rejected — ORX refunded');
           }
           saveDb();
           return res.json({ ok: true });
         }
 
         if (action === 'admin/broadcast') {
-          const title = String(req.body?.title || '').trim() || 'TAVORA Announcement';
+          const title = String(req.body?.title || '').trim() || 'Orbix Announcement';
           const message = String(req.body?.message || '').trim();
           if (!message) return res.status(400).json({ error: 'Broadcast message is required' });
           db.broadcasts.unshift({
@@ -744,7 +744,7 @@ async function startServer() {
 
   const port = Number(process.env.PORT || 3000);
   app.listen(port, '0.0.0.0', () => {
-    console.log(`TAVORA server listening on http://localhost:${port}`);
+    console.log(`Orbix server listening on http://localhost:${port}`);
   });
 }
 

@@ -1,6 +1,6 @@
 {
-  "name": "AURA TOKEN",
-  "description": "AURA TOKEN — Dark luxury gold-and-bronze Telegram Mini App for community mining, daily check-ins, social tasks, and referral boosts.",
+  "name": "Orbix",
+  "description": "Orbix — Dark gold-and-bronze Telegram Mini App for community rewards, daily check-ins, social tasks, reward nodes, and 1-level referrals.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

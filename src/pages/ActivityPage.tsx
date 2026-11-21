@@ -3,9 +3,10 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { DailyCheckinView } from '../components/DailyCheckinView';
 import { LuckyDrawView } from '../components/LuckyDrawView';
+import { OrbixLogo } from '../components/OrbixLogo';
 import { BRAND } from '../config/brand';
 import { openExternalUrl, triggerHaptic } from '../lib/telegram';
-import type { TaskItem, UserProfile, UserTask } from '../types/aura';
+import type { TaskItem, UserProfile, UserTask } from '../types/orbix';
 
 interface ActivityPageProps {
   user: UserProfile;
@@ -100,7 +101,7 @@ export function ActivityPage({
     const isVerifying = verifyingId === task.id;
 
     return (
-      <div className="aura-glass rounded-[22px] p-4 flex flex-col justify-between min-h-[192px]">
+      <div className="orbix-glass rounded-[22px] p-4 flex flex-col justify-between min-h-[192px]">
         <div className="pt-2 flex justify-center">
           <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#F3D9B1] to-[#C48A55] flex items-center justify-center text-[#1B120B] shadow-[0_6px_18px_rgba(196,138,85,0.28)]">
             <Send className="w-5 h-5 -translate-x-[1px] translate-y-[1px]" />
@@ -152,14 +153,17 @@ export function ActivityPage({
       className="pb-28 space-y-5"
     >
       <header className="flex items-center justify-between pt-2">
-        <span className="font-display text-[22px] font-semibold tracking-[0.22em] text-[#F7EFE6]">
-          {BRAND.name}<span className="text-[#C48A55]">.</span>
-        </span>
+        <div className="flex items-center gap-2.5">
+          <OrbixLogo size={28} />
+          <span className="font-display text-[22px] font-semibold tracking-[0.22em] text-[#F7EFE6] uppercase">
+            {BRAND.name}<span className="text-[#C48A55]">.</span>
+          </span>
+        </div>
         <button
           type="button"
           onClick={onOpenSupport}
           aria-label="Customer Service"
-          className="min-w-[44px] min-h-[44px] rounded-2xl aura-glass flex items-center justify-center text-[#E5BE8B]"
+          className="min-w-[44px] min-h-[44px] rounded-2xl orbix-glass flex items-center justify-center text-[#E5BE8B]"
         >
           <Headphones className="w-5 h-5" />
         </button>
@@ -185,10 +189,10 @@ export function ActivityPage({
             triggerHaptic('light');
             setSubView('checkin');
           }}
-          className="w-full aura-glass rounded-[24px] overflow-hidden relative text-left min-h-[126px] flex items-center hover:border-[#F3D9B1]/45 transition-colors"
+          className="w-full orbix-glass rounded-[24px] overflow-hidden relative text-left min-h-[126px] flex items-center hover:border-[#F3D9B1]/45 transition-colors"
         >
           <img
-            src="/src/assets/images/aura_checkin_card_1795071064232.jpg"
+            src="/src/assets/images/orbix_checkin_card.jpg"
             alt="Daily Check-in"
             referrerPolicy="no-referrer"
             className="absolute inset-0 w-full h-full object-cover opacity-55"
@@ -213,10 +217,10 @@ export function ActivityPage({
             triggerHaptic('light');
             setSubView('lucky');
           }}
-          className="w-full aura-glass rounded-[24px] overflow-hidden relative text-left min-h-[126px] flex items-center hover:border-[#F3D9B1]/45 transition-colors"
+          className="w-full orbix-glass rounded-[24px] overflow-hidden relative text-left min-h-[126px] flex items-center hover:border-[#F3D9B1]/45 transition-colors"
         >
           <img
-            src="/src/assets/images/aura_lucky_wheel_1795071064688.jpg"
+            src="/src/assets/images/orbix_lucky_wheel.jpg"
             alt="Lucky Draw Wheel"
             referrerPolicy="no-referrer"
             className="absolute inset-0 w-full h-full object-cover opacity-55"
@@ -250,7 +254,7 @@ export function ActivityPage({
               return (
                 <div
                   key={task.id}
-                  className="aura-glass rounded-[20px] p-4 flex items-center justify-between gap-3"
+                  className="orbix-glass rounded-[20px] p-4 flex items-center justify-between gap-3"
                 >
                   <div className="min-w-0">
                     <p className="text-sm font-semibold text-[#F7EFE6] truncate">{task.title}</p>
@@ -269,7 +273,7 @@ export function ActivityPage({
                       completed
                         ? 'bg-[#251B12] text-emerald-300 border border-emerald-500/30'
                         : started
-                          ? 'aura-gold-card text-[#1B120B]'
+                          ? 'orbix-gold-card text-[#1B120B]'
                           : 'bg-[#261B12] border border-[#C48A55]/35 text-[#F3D9B1] hover:border-[#F3D9B1]/60'
                     }`}
                   >

@@ -1,4 +1,4 @@
-export type TabId = 'home' | 'activity' | 'tvr' | 'node' | 'my';
+export type TabId = 'home' | 'activity' | 'orx' | 'node' | 'my';
 
 export type LanguageCode = 'en' | 'bn' | 'es' | 'ar';
 
@@ -25,10 +25,10 @@ export interface NodeTier {
   indexLabel: string;
   name: string;
   subtitle: string;
-  costTvr: number;
-  dailyTvr: number;
+  costOrx: number;
+  dailyOrx: number;
   durationDays: number;
-  totalEarningsTvr: number;
+  totalEarningsOrx: number;
   saleQuantity: number;
   baseProgressPct: number;
 }
@@ -38,10 +38,10 @@ export interface UserNode {
   tg_id: string;
   tier_id: string;
   tier_name: string;
-  daily_tvr: number;
+  daily_orx: number;
   duration_days: number;
   days_claimed: number;
-  total_claimed_tvr: number;
+  total_claimed_orx: number;
   last_claim_date: string | null;
   activated_at: string;
 }
@@ -120,8 +120,8 @@ export interface DailyActivityPoint {
 
 export interface CommunityStats {
   totalUsers: number;
-  totalPoolTvr: number;
-  totalDistributedTvr: number;
+  totalPoolOrx: number;
+  totalDistributedOrx: number;
   dailyActivity: DailyActivityPoint[];
 }
 
@@ -148,7 +148,7 @@ export interface AdminOverviewResponse {
   broadcasts: BroadcastMessage[];
   stats: {
     totalUsers: number;
-    totalTvrSupply: number;
+    totalOrxSupply: number;
     pendingWithdraws: number;
   };
 }
